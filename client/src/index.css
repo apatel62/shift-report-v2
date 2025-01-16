@@ -1,0 +1,407 @@
+/*sets color styles */
+:root {
+  --text: #ffffff;
+  --primary: #e0b22d;
+  --secondary: #d76d26;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.wait-text {
+  color: var(--text);
+}
+
+h1,
+a {
+  color: var(--text);
+}
+
+h2,
+h4 {
+  color: var(--text);
+  margin-top: 20px;
+}
+
+h3,
+span {
+  color: var(--text);
+}
+
+h3 {
+  font-style: italic;
+}
+
+body {
+  background-image: linear-gradient(
+    to right top,
+    #787f21,
+    #696217,
+    #574711,
+    #412f0c,
+    #2a1a01
+  );
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.login-notice {
+  /* Center the login form */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /*Vertically center */
+  height: 100vh; /* Take up full viewport height */
+  width: 100%; /* Make the div take up full width */
+  text-align: center; /* Center text inside the div */
+}
+
+.login-form {
+  color: var(--text);
+}
+
+.form-check {
+  margin: 20px 50px;
+}
+
+.form-check-input {
+  transform: scale(2);
+}
+
+.form-check-label {
+  color: var(--text);
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.form-custom {
+  width: 50%;
+  margin: 0px auto;
+}
+
+.shift-title {
+  margin-top: 50px;
+}
+
+.form-custom-1 {
+  width: 25%;
+  margin: 0px auto;
+}
+
+.login-error {
+  color: maroon;
+  margin-top: 20px;
+  font-style: initial;
+}
+
+.btn-custom-1 {
+  color: var(--text);
+  background-color: #e0b22d;
+  border-color: #e0b22d;
+  margin: 20px auto;
+  width: 25%;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+#machine-option {
+  height: 48px;
+  font-size: 20px;
+}
+
+select {
+  cursor: pointer;
+}
+
+#parts-made {
+  height: 48px;
+}
+
+span {
+  font-size: 20px;
+}
+
+.form-custom-2 {
+  width: 50%;
+  margin: 15px auto;
+  margin-top: 10px;
+}
+
+/* !important insures that the style is always applied*/
+.btn-custom {
+  color: var(--text);
+  background-color: #e0b22d;
+  margin: 20px auto;
+  width: 50%;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+.btn-custom:hover {
+  background-color: #a7830d;
+  color: var(--text);
+  transition: min-height 0.3s ease;
+}
+
+.btn-custom-1:hover {
+  color: var(--text);
+  background-color: #a7830d;
+}
+
+.form-custom,
+.form-custom-1,
+.form-custom-2 {
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+/* Navbar container */
+.navbar-custom {
+  display: flex;
+  justify-content: space-between; /* Ensure space between logoff button and navItem */
+  align-items: center; /* Vertically center all elements */
+  color: var(--text);
+  padding: 10px 20px;
+  position: relative;
+  min-height: 60px; /* Set a minimum height for the navbar */
+  transition: min-height 0.3s ease; /* Smooth transition when resizing */
+}
+
+/* Logoff button (right side) */
+.logoff {
+  color: var(--text);
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  margin-left: 0; /* Logoff stays on the right side */
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logoff:hover {
+  background-color: #a7830d;
+}
+
+.navbar-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 2rem;
+  margin: 0;
+  margin-top: 1rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navbar-subtitle {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 3.75rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.navItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.nav-link {
+  margin-left: 20px;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+}
+
+/* Hover effect for nav links */
+.nav-link:hover {
+  background-color: #a7830d;
+}
+
+.nav-link.active {
+  background-color: var(--primary);
+}
+
+.datepicker {
+  margin-top: 50px;
+  color: var(--text);
+}
+
+label[for="startDate"],
+label[for="endDate"] {
+  font-size: 30px;
+}
+
+#startDate,
+#endDate {
+  height: 50%;
+}
+
+.table-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-custom {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+.table-custom thead td,
+.table-custom tbody td {
+  border: 1px solid #ddd;
+  padding: 15px 40px;
+  text-align: center;
+}
+
+.table-custom thead td {
+  background-color: #b8860b;
+  color: var(--text);
+  font-weight: bold;
+}
+
+.table-custom tbody tr:nth-child(odd) {
+  background-color: var(--text);
+}
+
+.table-custom tbody tr:nth-child(even) {
+  background-color: #f5deb3;
+}
+
+canvas {
+  width: 75%;
+  height: 200px;
+  background-color: var(--text);
+}
+
+.filter-checkbox,
+.filter-by {
+  margin-top: 50px;
+}
+
+.body-blur {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+
+/*adjusts spacing and position in navbar depending on screen width*/
+@media (max-width: 1300px) {
+  .shift-title {
+    margin-top: 0px;
+  }
+
+  .datepicker {
+    margin-top: 0px;
+  }
+
+  .navbar-title {
+    font-size: 1.5rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 3rem;
+    font-size: 0.75rem;
+  }
+
+  .navbar-custom {
+    align-items: flex-start;
+  }
+  .navItem {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 0px;
+  }
+
+  .nav-link,
+  .logoff {
+    font-size: 0.9rem;
+  }
+
+  .nav-bottom {
+    margin-top: 10px;
+  }
+
+  .logoff {
+    position: static;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 60%;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 15px 30px;
+  }
+}
+
+@media (max-width: 912px) {
+  .navbar-title {
+    font-size: 1rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 2.5rem;
+    font-size: 0.6rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+    margin-left: 10px;
+  }
+
+  .logoff {
+    font-size: 0.7rem;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 10px 25px;
+  }
+}
+
+@media (max-width: 625px) {
+  .navbar-title {
+    font-size: 1rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 4rem;
+    font-size: 0.6rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+    margin-left: 2px;
+  }
+
+  .logoff {
+    font-size: 0.7rem;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 5px 15px;
+  }
+}
