@@ -54,6 +54,20 @@ const Nav = () => {
         >
           View History
         </Link>
+        <Link
+          to="/OTS"
+          className={
+            currentPage === "/OTS"
+              ? "nav-bottom nav-link active"
+              : "nav-bottom nav-link"
+          }
+          style={{
+            display:
+              loginCheck && auth.getRole() === "supervisor" ? "block" : "none",
+          }}
+        >
+          OTS
+        </Link>
       </nav>
       <div className="loginText">
         <h1 className="navbar-title">{getTitle()}</h1>
@@ -66,6 +80,21 @@ const Nav = () => {
           Or Select View History to View Production History
         </h2>
       </div>
+
+      <Link
+        to="/CreateAccount"
+        className={
+          currentPage === "/CreateAccount"
+            ? "nav-bottom nav-link active"
+            : "nav-bottom nav-link"
+        }
+        style={{
+          display:
+            loginCheck && auth.getRole() === "supervisor" ? "block" : "none",
+        }}
+      >
+        Create an Account
+      </Link>
       <button
         className="logoff"
         style={{ display: loginCheck ? "block" : "none" }}

@@ -766,7 +766,7 @@ const ShiftHistory = () => {
             value={filterValue}
             onChange={handleFilterChange}
           >
-            <option value={0} disabled selected className="select-placeholder">
+            <option value={0} disabled className="select-placeholder">
               Select option
             </option>
             <option value={1}>Daily</option>

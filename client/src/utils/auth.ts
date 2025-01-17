@@ -18,6 +18,11 @@ class AuthService {
     return decoded;
   }
 
+  getRole() {
+    const decodedToken = jwtDecode<IdPayload>(this.getToken());
+    return decodedToken.data.role;
+  }
+
   loggedIn() {
     // return a value that indicates if the user is logged in
     const token = this.getToken();
@@ -57,10 +62,8 @@ class AuthService {
     localStorage.setItem("token", idToken);
     const decodedToken = jwtDecode<IdPayload>(idToken);
     const userId = decodedToken.data._id;
-    const role = decodedToken.data.role;
     const username = decodedToken.data.username;
     localStorage.setItem("userId", userId);
-    localStorage.setItem("role", role);
     localStorage.setItem("username", username);
     // redirect to the home page
     window.location.assign("/");
@@ -70,7 +73,6 @@ class AuthService {
     // remove the token from localStorage
     localStorage.removeItem("token");
     localStorage.removeItem("userId");
-    localStorage.removeItem("role");
     localStorage.removeItem("username");
     localStorage.removeItem("reportId");
     // redirect to the login page
