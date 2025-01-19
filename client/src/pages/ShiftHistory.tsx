@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { HistoryData } from "../interfaces/HistoryData";
-//import { postHistory } from "../api/historyAPI";
-//import { createPDF } from "../api/authPdf";
-//import { getPDF } from "../api/authPdfDownload";
 import { useMutation } from "@apollo/client";
 import { GET_HISTORY, CREATE_PDF, GET_PDF } from "../utils/mutations";
 
