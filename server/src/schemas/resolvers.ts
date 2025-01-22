@@ -119,7 +119,19 @@ const resolvers = {
                 throw new Error('Failed to fetch user data');
             }
         },
-
+        getAllReports: async(_parent: unknown, _args: unknown, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const allReports = await Report.find();
+                    return allReports;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error fetching reports', error);
+                throw new Error('Failed to fetch reports');
+            }
+        },
     },
 
     Mutation: {
