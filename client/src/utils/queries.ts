@@ -9,4 +9,19 @@ export const GET_ME = gql`
       role
     }
   }
+
+  query getAllReports {
+    getAllReports {
+      _id
+      shiftNumber
+      date
+      assignedUserId
+      savedMachines {
+        machine
+        machineStatus
+        partsMade
+        comments
+      }
+    }
+  }
 `;
