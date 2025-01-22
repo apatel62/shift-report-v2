@@ -146,8 +146,8 @@ const resolvers = {
                 console.error({ message: "Cannot create user" });
                 throw new Error('Failed to create user');
               }
-            const token = signToken(user.username, user.password, user.role, user._id);
-            return ({ token, user });
+            //const token = signToken(user.username, user.password, user.role, user._id);
+            return user;
         },
 
         createReport: async(_parent: unknown, reportArgs: CreateReportArgs, context: IUserContext) => {

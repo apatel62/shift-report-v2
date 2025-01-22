@@ -92,8 +92,14 @@ body {
   margin: 0px auto;
 }
 
-.login-error {
-  color: maroon;
+.login-error, .addUser-error {
+  color: purple;
+  margin-top: 20px;
+  font-style: initial;
+}
+
+.success-user {
+  color: turquoise;
   margin-top: 20px;
   font-style: initial;
 }

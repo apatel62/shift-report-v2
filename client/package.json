@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.10.6",
-    "@chakra-ui/react": "^3.3.3",
+    "@chakra-ui/react": "^3.4.0",
     "@emotion/react": "^11.14.0",
     "bootstrap": "^5.3.3",
     "jwt-decode": "^4.0.0",
