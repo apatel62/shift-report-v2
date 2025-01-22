@@ -33,7 +33,7 @@ const Nav = () => {
     } else if (currentPage === "/CreateAccount") {
       return "Create an Account";
     } else if (currentPage === "/OTS") {
-      return "Create an Account";
+      return "OTS";
     } else {
       return "Page Not Found";
     }
