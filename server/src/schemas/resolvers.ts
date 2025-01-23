@@ -96,6 +96,10 @@ interface GetPDFArgs {
     docId: string;
 }
 
+interface UserIdArgs {
+    userId: string;  // Type the 'userId' argument as a string
+  }
+
 const formatDate = (date: Date): string => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Month is 0-indexed
     const day = ("0" + date.getDate()).slice(-2);
@@ -130,6 +134,19 @@ const resolvers = {
             } catch (error) {
                 console.error('Error fetching reports', error);
                 throw new Error('Failed to fetch reports');
+            }
+        },
+        getUserById: async(_parent: unknown, {userId}: UserIdArgs, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const user = await User.findById(userId);
+                    return user;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error fetching user with id', error);
+                throw new Error('Failed to fetch user with id');
             }
         },
     },
