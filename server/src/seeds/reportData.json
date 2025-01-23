@@ -1,0 +1,78 @@
+[
+  {
+    "shiftNumber": 1,
+    "date": "2025-01-12T06:00:00.000Z",
+    "assignedUserId": "678435838e74b3224ba657be",
+    "savedMachines": [
+      {
+        "machine": "Machine 1",
+        "machineStatus": "UP",
+        "partsMade": 225,
+        "comments": "another test"
+      },
+      {
+        "machine": "Machine 5",
+        "machineStatus": "DOWN",
+        "partsMade": 80,
+        "comments": ""
+      }
+    ]
+  },
+  {
+    "shiftNumber": 2,
+    "date": "2025-01-12T07:00:00.000Z",
+    "assignedUserId": "678435838e74b3224ba657be",
+    "savedMachines": [
+      {
+        "machine": "Machine 1",
+        "machineStatus": "DOWN",
+        "partsMade": 100,
+        "comments": "motor broke"
+      },
+      {
+        "machine": "Machine 2",
+        "machineStatus": "UP",
+        "partsMade": 300,
+        "comments": ""
+      }
+    ]
+  },
+  {
+    "shiftNumber": 1,
+    "date": "2025-01-13T06:00:00.000Z",
+    "assignedUserId": "678435838e74b3224ba657be",
+    "savedMachines": [
+      {
+        "machine": "Machine 2",
+        "machineStatus": "DOWN",
+        "partsMade": 250,
+        "comments": "blew up"
+      },
+      {
+        "machine": "Machine 3",
+        "machineStatus": "UP",
+        "partsMade": 150,
+        "comments": ""
+      }
+    ]
+  },
+  {
+    "shiftNumber": 2,
+    "date": "2025-01-13T07:00:00.000Z",
+    "assignedUserId": "678435838e74b3224ba657be",
+    "savedMachines": [
+      {
+        "machine": "Machine 4",
+        "machineStatus": "UP",
+        "partsMade": 550,
+        "comments": ""
+      },
+      {
+        "machine": "Machine 5",
+        "machineStatus": "DOWN",
+        "partsMade": 175,
+        "comments": "broke"
+      }
+    ]
+  }
+]

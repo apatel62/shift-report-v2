@@ -1,0 +1,14 @@
+[
+  {
+    "username": "arjun",
+    "email": "arjunpatel9217@gmail.com",
+    "password": "dakkad",
+    "role": "supervisor"
+  },
+  {
+    "username": "keaton",
+    "email": "keatongreer1@gmail.com",
+    "password": "kaddak",
+    "role": "supervisor"
+  }
+]
