@@ -15,13 +15,13 @@ db.once("open", async () => {
   await cleanDB("Report", "reports");
 
   const userData = await loadJson(
-    new URL("./userData.json", import.meta.url).pathname
+    new URL("../../src/seeds/userData.json", import.meta.url).pathname
   );
   await User.insertMany(userData);
   console.log("Users seeded!");
 
   const reportData = await loadJson(
-    new URL("./reportData.json", import.meta.url).pathname
+    new URL("../../src/seeds/reportData.json", import.meta.url).pathname
   );
   await Report.insertMany(reportData);
   console.log("Reports seeded!");
