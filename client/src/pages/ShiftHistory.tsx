@@ -1,8 +1,5 @@
 import React, { useState } from "react";
 import { HistoryData } from "../interfaces/HistoryData";
-//import { postHistory } from "../api/historyAPI";
-//import { createPDF } from "../api/authPdf";
-//import { getPDF } from "../api/authPdfDownload";
 import { useMutation } from "@apollo/client";
 import { GET_HISTORY, CREATE_PDF, GET_PDF } from "../utils/mutations";
 
@@ -766,7 +763,7 @@ const ShiftHistory = () => {
             value={filterValue}
             onChange={handleFilterChange}
           >
-            <option value={0} disabled selected className="select-placeholder">
+            <option value={0} disabled className="select-placeholder">
               Select option
             </option>
             <option value={1}>Daily</option>

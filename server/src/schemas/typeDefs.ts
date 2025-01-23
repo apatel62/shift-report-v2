@@ -23,6 +23,22 @@ const typeDefs = `
     comments: String
   }
 
+  type OTSReport {
+    _id: ID!
+    shiftNumber: String
+    date: Date
+    assignedUserId: String
+    savedMachines: [OTSMachine]
+  }
+
+  type OTSMachine {
+    machine: String
+    machineStatus: String
+    partsMade: Int
+    comments: String
+    lotNumber: Int
+  }
+
   type Auth {
     token: String
     user: User
@@ -62,11 +78,12 @@ input CreateInput {
 
   type Query {
     me: User
+    getAllReports: [Report]
   }
 
   type Mutation {
     login(username: String!, password: String!): Auth
-    addUser(username: String!, email: String!, role: String!, password: String!): Auth
+    addUser(username: String!, email: String!, role: String!, password: String!): User
     createReport(report: ReportInput!): Report
     saveMachine(machine: MachineInput!): Report
     sendEmail(reportId: String!): Report

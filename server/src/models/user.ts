@@ -8,6 +8,7 @@ export interface UserDocument extends Document {
   email: string;
   role: string;
   savedReports: Schema.Types.ObjectId[];
+  savedOTSReports: Schema.Types.ObjectId[];      //if user supervisor, then approved OTS reports' id will be listed here
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
@@ -35,6 +36,10 @@ const userSchema = new Schema<UserDocument>(
     savedReports: [{
       type: Schema.Types.ObjectId,
       ref: 'Report',
+    }],
+    savedOTSReports: [{
+      type: Schema.Types.ObjectId,
+      ref: 'OTSReport',
     }],
   },
   {

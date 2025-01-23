@@ -124,6 +124,8 @@ const ShiftReport = () => {
   const [loginData, setLoginData] = useState<User>({
     username: "",
     password: "",
+    email: "",
+    role: "",
   });
 
   const handleLoginChange = (
@@ -174,7 +176,7 @@ const ShiftReport = () => {
       partsMade: null,
       comments: null,
     });
-    
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = (currentDate.getMonth() + 1).toString().padStart(2, "0");

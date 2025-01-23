@@ -119,7 +119,19 @@ const resolvers = {
                 throw new Error('Failed to fetch user data');
             }
         },
-
+        getAllReports: async(_parent: unknown, _args: unknown, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const allReports = await Report.find();
+                    return allReports;
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error fetching reports', error);
+                throw new Error('Failed to fetch reports');
+            }
+        },
     },
 
     Mutation: {
@@ -146,8 +158,8 @@ const resolvers = {
                 console.error({ message: "Cannot create user" });
                 throw new Error('Failed to create user');
               }
-            const token = signToken(user.username, user.password, user.role, user._id);
-            return ({ token, user });
+            //const token = signToken(user.username, user.password, user.role, user._id);
+            return user;
         },
 
         createReport: async(_parent: unknown, reportArgs: CreateReportArgs, context: IUserContext) => {
