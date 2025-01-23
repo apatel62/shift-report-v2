@@ -5,11 +5,11 @@
   --secondary: #d76d26;
 }
 
-* {
+/* * {
   margin: 0;
   padding: 0;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-}
+} */
 
 .wait-text {
   color: var(--text);
@@ -92,7 +92,8 @@ body {
   margin: 0px auto;
 }
 
-.login-error, .addUser-error {
+.login-error,
+.addUser-error {
   color: purple;
   margin-top: 20px;
   font-style: initial;
@@ -220,7 +221,8 @@ span {
   flex-grow: 1;
 }
 
-.nav-link {
+.nav-link,
+.chakra-button {
   margin-left: 20px;
   font-size: 1rem;
   padding: 10px;
@@ -231,11 +233,13 @@ span {
 }
 
 /* Hover effect for nav links */
-.nav-link:hover {
+.nav-link:hover,
+.chakra-button:hover {
   background-color: #a7830d;
 }
 
-.nav-link.active {
+.nav-link.active,
+.chakra-button.active {
   background-color: var(--primary);
 }
 
@@ -305,6 +309,26 @@ canvas {
 
 .modal {
   z-index: 1050 !important;
+}
+
+.chakra-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.chakra-card__body h3,
+.chakra-card__body p {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.chakra-card__footer button {
+  background-color: #e0b22d;
+  color: black;
+  width: 100%;
 }
 
 /*adjusts spacing and position in navbar depending on screen width*/
