@@ -1,6 +1,7 @@
 import db from "../config/connection.js";
 import models from "../models/index.js";
 import cleanDB from "./cleanDb.js";
+import fs from "fs/promises";
 
 const { User, Report } = models;
 
