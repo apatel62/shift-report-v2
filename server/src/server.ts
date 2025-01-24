@@ -16,6 +16,7 @@ import {authenticateToken} from './services/auth.js'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+//Initializes Apollo server with typeDefs and resolvers
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -24,14 +25,14 @@ const server = new ApolloServer({
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+//starts Apollo server
 const startApolloServer = async () => {
   await server.start();
     
   app.use(express.urlencoded({ extended: true }));
   app.use(express.json());
 
- 
+ //Integrates Express.js with GraphQL
   app.use('/graphql', expressMiddleware(server as any,
     {
       context: authenticateToken as any
