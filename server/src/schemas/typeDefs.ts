@@ -1,3 +1,4 @@
+//typeDefs describes the data and structure of the queries and mutations the GraphQL will support
 const typeDefs = `
   scalar Date
   type User {
@@ -79,7 +80,7 @@ input CreateInput {
   type Query {
     me: User
     getAllReports: [Report]
-    getUserById(userId: ID!): User
+    getUserById(userId: String!): User
   }
 
   type Mutation {

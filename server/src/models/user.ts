@@ -1,17 +1,19 @@
 import { Schema, model, type Document } from 'mongoose';
 import bcrypt from "bcrypt";
 
-
+//Defines the User document
 export interface UserDocument extends Document {
+  _id: Schema.Types.ObjectId;
   username: string;
   password: string;
   email: string;
   role: string;
-  savedReports: Schema.Types.ObjectId[];
+  savedReports: Schema.Types.ObjectId[];          //if user created report, then its id will be stored in savedReports array
   savedOTSReports: Schema.Types.ObjectId[];      //if user supervisor, then approved OTS reports' id will be listed here
   isCorrectPassword(password: string): Promise<boolean>;
 }
 
+// Define the schema for the User
 const userSchema = new Schema<UserDocument>(
   {
     username: {
@@ -49,7 +51,7 @@ const userSchema = new Schema<UserDocument>(
   }
 );
 
-// hash user password
+//hash user password before storing it in MongoDB
 userSchema.pre('save', async function (next) {
   if (this.isNew || this.isModified('password')) {
     const saltRounds = 10;
@@ -59,11 +61,12 @@ userSchema.pre('save', async function (next) {
   next();
 });
 
-// custom method to compare and validate password for logging in
+//Method to compare and validate password for logging in
 userSchema.methods.isCorrectPassword = async function (password: string) {
   return await bcrypt.compare(password, this.password);
 };
 
+//Creates the User model/collection in MongoDB
 const User = model<UserDocument>('User', userSchema);
 
 export default User;
