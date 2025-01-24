@@ -79,6 +79,7 @@ input CreateInput {
   type Query {
     me: User
     getAllReports: [Report]
+    getUserById(userId: ID!): User
   }
 
   type Mutation {
