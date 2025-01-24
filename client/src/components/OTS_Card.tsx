@@ -1,10 +1,12 @@
 import { Card } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@apollo/client";
+import { GET_USER_ID } from "@/utils/queries";
 
 interface OTS_CardProps {
   date: string;
   shift: string;
-  creator: string;
+  creatorId: string;
 }
 
 const handleButtonClick = () => {
@@ -12,6 +14,15 @@ const handleButtonClick = () => {
 };
 
 const OTS_Card = (props: OTS_CardProps) => {
+  const {
+    loading,
+    error,
+    data: userData,
+  } = useQuery(GET_USER_ID, {
+    variables: { userId: props.creatorId },
+  });
+  console.log("userData:", userData);
+
   return (
     <Card.Root
       width="320px"
@@ -27,7 +38,16 @@ const OTS_Card = (props: OTS_CardProps) => {
       <Card.Body gap="2">
         <Card.Title mt="2">{props.date}</Card.Title>
         <Card.Description>
-          Shift {props.shift} <br /> Created by: {props.creator}
+          {error ? (
+            <>Error: {error.message}</>
+          ) : loading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              Shift {props.shift} <br />
+              Created by: {userData ? userData.getUserById.username : "Unknown"}
+            </>
+          )}
         </Card.Description>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">
