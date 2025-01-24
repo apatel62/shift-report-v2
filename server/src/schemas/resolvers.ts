@@ -2,10 +2,12 @@ import Report from '../models/report.js';
 import { ReportDocument } from '../models/report.js';
 import User from '../models/user.js';
 import { signToken } from '../services/auth.js';
-import sgMail from "@sendgrid/mail";
-//console.log(process.env.SENDGRID_API_KEY);
+import sgMail from "@sendgrid/mail";                           //imports SendGrid API
 import { GraphQLScalarType, Kind } from 'graphql';
-// Custom Date Scalar
+import { ObjectId } from 'mongodb';
+
+
+//Custom Date Scalar to define Date type in GraphQL
 const DateScalar = new GraphQLScalarType({
     name: 'Date',
     description: 'A custom scalar type for Date',
@@ -29,6 +31,7 @@ const DateScalar = new GraphQLScalarType({
     },
   });
 
+//Interfaces created for the arguments passed from the client to GraphQL to the server
 interface User {
     _id: string;
     username: string;
@@ -97,9 +100,10 @@ interface GetPDFArgs {
 }
 
 interface UserIdArgs {
-    userId: string;  // Type the 'userId' argument as a string
+    userId: string;  
   }
 
+//Function that formats the date so its in MM-dd-YYYY 
 const formatDate = (date: Date): string => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Month is 0-indexed
     const day = ("0" + date.getDate()).slice(-2);
@@ -108,9 +112,12 @@ const formatDate = (date: Date): string => {
     return `${month}-${day}-${year}`;
   };
 
+//Resolvers defined to handle the requests made from the client and the corresponding data is returned from the database
 const resolvers = {
     Date: DateScalar,
+    //Queries are used to read and retrieve data from the database
     Query: {
+        //me query returns the user that is logged in
         me: async(_parent: unknown, _args: unknown, context: IUserContext) => {
             try {
                 if (context.user) {
@@ -123,6 +130,7 @@ const resolvers = {
                 throw new Error('Failed to fetch user data');
             }
         },
+        //getAllReports returns an array of Report documents within the collection used to display the tiles for supervisors to look over & approve on OTS page
         getAllReports: async(_parent: unknown, _args: unknown, context: IUserContext) => {
             try {
                 if (context.user) {
@@ -136,21 +144,26 @@ const resolvers = {
                 throw new Error('Failed to fetch reports');
             }
         },
+        //getUserById returns the user based on the userId provided
+        //Used for tiles on OTS page so supervisors know who created the report
         getUserById: async(_parent: unknown, {userId}: UserIdArgs, context: IUserContext) => {
             try {
                 if (context.user) {
-                    const user = await User.findById(userId);
-                    return user;
+                    const userObjectId = new ObjectId(userId);
+                    console.log(userObjectId);
+                    const user = await User.findOne({ _id: userObjectId });
+                    return user; 
                 } else {
                     return;
                 }
+                
             } catch (error) {
                 console.error('Error fetching user with id', error);
                 throw new Error('Failed to fetch user with id');
             }
         },
     },
-
+    //Mutations are used to modify documents in the collections
     Mutation: {
         login: async (_parent: unknown, {username, password}: LoginArgs) => {
             const user = await User.findOne({ username: username});
