@@ -5,7 +5,8 @@ import fs from "fs/promises";
 import { fileURLToPath } from "url";
 import path from "path";
 
-const { User, Report } = models;
+// const { User, Report } = models;
+const { User } = models;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,9 +24,9 @@ db.once("open", async () => {
   await User.insertMany(userData);
   console.log("Users seeded!");
 
-  const reportData = await loadJson(path.join(jsonDirectory, "reportData.json"));
-  await Report.insertMany(reportData);
-  console.log("Reports seeded!");
+  // const reportData = await loadJson(path.join(jsonDirectory, "reportData.json"));
+  // await Report.insertMany(reportData);
+  // console.log("Reports seeded!");
 
   process.exit(0);
 });

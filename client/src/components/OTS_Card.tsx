@@ -2,18 +2,30 @@ import { Card } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
 import { useQuery } from "@apollo/client";
 import { GET_USER_ID } from "@/utils/queries";
+import { useNavigate } from "react-router-dom";
+import { Machine } from "../models/Machine";
 
 interface OTS_CardProps {
   date: string;
   shift: string;
   creatorId: string;
+  savedMachines: Machine[];
 }
 
-const handleButtonClick = () => {
-  console.log("Submitted");
-};
-
 const OTS_Card = (props: OTS_CardProps) => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/OTSView", {
+      state: {
+        _id: props.creatorId,
+        shiftNumber: props.shift,
+        date: props.date,
+        assignedUserId: props.creatorId,
+        savedMachines: props.savedMachines,
+      },
+    });
+  };
+
   const {
     loading,
     error,

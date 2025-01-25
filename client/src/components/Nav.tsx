@@ -34,6 +34,8 @@ const Nav = () => {
       return "Create an Account";
     } else if (currentPage === "/OTS") {
       return "OTS";
+    } else if (currentPage === "/OTSView") {
+      return "OTS Approval";
     } else {
       return "Page Not Found";
     }
