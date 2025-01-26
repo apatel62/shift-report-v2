@@ -10,12 +10,13 @@ const { User } = models;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const jsonDirectory = path.resolve(__dirname, "../../src/seeds"); // or wherever the files are located after building
+const jsonDirectory = path.resolve(__dirname, "../../src/seeds"); 
 async function loadJson(filePath: string) {
   const data = await fs.readFile(filePath, "utf-8");
   return JSON.parse(data);
 }
-
+//opens the database once and cleans the models/collections first
+//then loads the json data into the corresponding collections
 db.once("open", async () => {
   await cleanDB("User", "users");
   await cleanDB("Report", "reports");
