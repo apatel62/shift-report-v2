@@ -595,7 +595,6 @@ const ShiftHistory = () => {
         });
 
         if (pdfData.createPDF) {
-          //console.log(pdfData.createPDF);
           pdfId = pdfData.createPDF;
           setIsTableVisible(true);
         }

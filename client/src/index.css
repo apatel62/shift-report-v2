@@ -93,7 +93,9 @@ body {
 }
 
 .login-error,
-.addUser-error {
+.addUser-error,
+.OTSReport-error,
+.OTSMachines-error {
   color: purple;
   margin-top: 20px;
   font-style: initial;

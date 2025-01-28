@@ -1,17 +1,41 @@
 import { Card } from "@chakra-ui/react";
 import { Button } from "@/components/ui/button";
+import { useQuery } from "@apollo/client";
+import { GET_USER_ID } from "@/utils/queries";
+import { useNavigate } from "react-router-dom";
+import { Machine } from "../models/Machine";
 
 interface OTS_CardProps {
+  _id: string;
   date: string;
   shift: string;
-  creator: string;
+  creatorId: string;
+  savedMachines: Machine[];
 }
 
-const handleButtonClick = () => {
-  console.log("Submitted");
-};
-
 const OTS_Card = (props: OTS_CardProps) => {
+  const navigate = useNavigate();
+  const handleButtonClick = () => {
+    navigate("/OTSView", {
+      state: {
+        _id: props.creatorId,
+        shiftNumber: props.shift,
+        date: props.date,
+        assignedUserId: props.creatorId,
+        savedMachines: props.savedMachines,
+        reportId: props._id,
+      },
+    });
+  };
+
+  const {
+    loading,
+    error,
+    data: userData,
+  } = useQuery(GET_USER_ID, {
+    variables: { userId: props.creatorId },
+  });
+
   return (
     <Card.Root
       width="320px"
@@ -27,7 +51,16 @@ const OTS_Card = (props: OTS_CardProps) => {
       <Card.Body gap="2">
         <Card.Title mt="2">{props.date}</Card.Title>
         <Card.Description>
-          Shift {props.shift} <br /> Created by: {props.creator}
+          {error ? (
+            <>Error: {error.message}</>
+          ) : loading ? (
+            <>Loading...</>
+          ) : (
+            <>
+              Shift {props.shift} <br />
+              Created by: {userData ? userData.getUserById.username : "Unknown"}
+            </>
+          )}
         </Card.Description>
       </Card.Body>
       <Card.Footer justifyContent="flex-end">

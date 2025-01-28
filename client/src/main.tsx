@@ -7,6 +7,7 @@ import ShiftHistory from "./pages/ShiftHistory.tsx";
 import ErrorPage from "./pages/ErrorPage.tsx";
 import CreateAccount from "./pages/CreateAccount.tsx";
 import OTS from "./pages/OTS.tsx";
+import OTSView from "./pages/OTSView.tsx";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: "/OTS",
         element: <OTS />,
+      },
+      {
+        path: "/OTSView",
+        element: <OTSView />,
       },
     ],
   },
