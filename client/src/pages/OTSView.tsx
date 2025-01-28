@@ -358,9 +358,8 @@ const OTSView = () => {
             className="OTSMachines-error"
             style={{ display: OTSMachinesError ? "block" : "none" }}
           >
-            Machines cannot be saved to OTS report! Please check to ensure all
-            form fields are entered correctly. Comments are optional and do not
-            need to be filled out.
+            Failed to approve! Ensure all form fields are entered correctly.
+            Comments are optional.
           </h3>
           <h3
             className="success-user"
