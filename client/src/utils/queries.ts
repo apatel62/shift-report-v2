@@ -26,7 +26,7 @@ export const GET_ALL_REPORTS = gql`
       }
     }
   }
-`
+`;
 export const GET_USER_ID = gql`
   query getUserById($userId: String!) {
     getUserById(userId: $userId) {

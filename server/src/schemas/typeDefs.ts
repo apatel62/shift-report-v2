@@ -51,11 +51,25 @@ const typeDefs = `
     assignedUserId: String!   
   }
 
+  input OTSReportInput {
+    shiftNumber: String!      
+    date: Date!
+    assignedUserId: String!   
+  }
+
   input MachineInput {
     machine: String!
     machineStatus: String!
     partsMade: Int!
     comments: String         
+  }
+
+  input OTSMachineInput {
+    machine: String!
+    machineStatus: String!
+    partsMade: Int!
+    comments: String
+    lotNumber: Int!         
   }
 
   input HistoryInput {
@@ -92,6 +106,9 @@ input CreateInput {
     getHistory(history: HistoryInput!): [Report]
     createPDF(create: [CreateInput!]!): String
     getPDF(docId: String!): String
+    createOTSReport(report: OTSReportInput!): OTSReport
+    saveOTSMachines(reportId: String!, machine: [OTSMachineInput!]!): OTSReport
+    removeReport(reportId: String!): String
   }
 `;
 

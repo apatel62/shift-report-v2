@@ -40,6 +40,7 @@ const OTS = () => {
               shift={data.shiftNumber}
               creatorId={data.assignedUserId}
               savedMachines={data.savedMachines}
+              _id = {data._id}
             />
           ))}
         </Stack>

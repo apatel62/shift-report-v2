@@ -1,5 +1,3 @@
-// import { useQuery } from "@apollo/client";
-// import { GET_ALL_REPORTS } from "@/utils/queries";
 import { Machine } from "../models/Machine";
 import { OTSMachine } from "@/models/OTSMachine";
 import { OTSReport } from "@/models/OTSReport";
@@ -7,6 +5,13 @@ import auth from "../utils/auth";
 import { useState, useEffect } from "react";
 import { HStack } from "@chakra-ui/react";
 import { useLocation } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import {
+  CREATE_OTS_REPORT,
+  SAVE_OTS_MACHINES,
+  REMOVE_REPORT,
+} from "../utils/mutations";
+import { useNavigate } from "react-router-dom";
 
 interface OTSViewProps {
   _id: string;
@@ -14,52 +19,18 @@ interface OTSViewProps {
   date: Date | null;
   assignedUserId: string;
   savedMachines: Machine[];
+  reportId: string;
 }
 
 const OTSView = () => {
-  const [newOTSReport, setNewOTSReport] = useState<OTSReport | undefined>({
-    shiftNumber: "",
-    date: null,
-    assignedUserId: null,
-    machines: [],
-  });
   const location = useLocation();
-  const { shiftNumber, date, savedMachines } = location.state as OTSViewProps;
-
-  const [newOTSMachines, setNewOTSMachines] = useState<OTSMachine[]>([]);
-
-  const [loginCheck, setLoginCheck] = useState(false);
-  const checkLogin = () => {
-    const isLoggedIn = auth.loggedIn();
-    if (isLoggedIn) {
-      setLoginCheck(true);
-    }
-  };
-
-  const handleShiftChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedShift = Number(event.target.value);
-    setNewOTSReport((prev) =>
-      prev
-        ? {
-            ...prev,
-            shiftNumber: selectedShift.toString(),
-            assignedUserId: localStorage.getItem("userId") as string,
-          }
-        : undefined
-    );
-  };
-
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawDate = e.target.value;
-    let time = "06:00:00.000Z";
-    if (newOTSReport?.shiftNumber === "2") {
-      time = "07:00:00.000Z";
-    }
-    const finalformattedDate = new Date(`${rawDate}T${time}`);
-    setNewOTSReport((prev) =>
-      prev ? { ...prev, date: finalformattedDate } : undefined
-    );
-  };
+  const { reportId, shiftNumber, date, savedMachines } =
+    location.state as OTSViewProps;
+  const navigate = useNavigate();
+  const [shiftNumberOTS, setShiftNumberOTS] = useState<number>(
+    Number(shiftNumber)
+  );
+  const [dateOTS, setDateOTS] = useState<string>(date?.toString() ?? "");
 
   useEffect(() => {
     checkLogin();
@@ -73,20 +44,113 @@ const OTSView = () => {
     setNewOTSMachines((prev) => [...prev, ...transformedMachines]);
   }, [savedMachines]);
 
-  const handleSubmitPress = async (
-    event: React.MouseEvent<HTMLButtonElement>
-  ) => {
-    event.preventDefault();
+  const [newOTSReport, setNewOTSReport] = useState<OTSReport | undefined>({
+    shiftNumber: shiftNumberOTS.toString(),
+    date: date,
+    assignedUserId: localStorage.getItem("userId") as string,
+  });
+
+  const [newOTSMachines, setNewOTSMachines] = useState<OTSMachine[]>([]);
+
+  const [loginCheck, setLoginCheck] = useState(false);
+  const checkLogin = () => {
+    const isLoggedIn = auth.loggedIn();
+    if (isLoggedIn) {
+      setLoginCheck(true);
+    }
+  };
+
+  const [successOTSReport, setSuccessOTSReport] = useState(false);
+  const [OTSReportError, setOTSReportError] = useState(false);
+  const [OTSMachinesError, setOTSMachinesError] = useState(false);
+
+  const [createOTSReport] = useMutation(CREATE_OTS_REPORT);
+  const [saveOTSMachines] = useMutation(SAVE_OTS_MACHINES);
+  const [removeReport] = useMutation(REMOVE_REPORT);
+
+  const handleShiftChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedShift = Number(event.target.value);
+    setShiftNumberOTS(selectedShift);
     setNewOTSReport((prev) =>
       prev
         ? {
             ...prev,
-            assignedUserId: localStorage.getItem("userId"),
-            machines: newOTSMachines,
+            shiftNumber: selectedShift.toString(),
           }
         : undefined
     );
-    console.log(newOTSReport);
+  };
+
+  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const rawDate = e.target.value;
+    if (!rawDate) {
+      setNewOTSReport((prev) => (prev ? { ...prev, date: null } : undefined));
+      setDateOTS("");
+    } else {
+      setDateOTS(rawDate);
+      let time = "06:00:00.000Z";
+      if (newOTSReport?.shiftNumber === "2") {
+        time = "07:00:00.000Z";
+      }
+      const finalformattedDate = new Date(`${rawDate}T${time}`);
+      setNewOTSReport((prev) =>
+        prev ? { ...prev, date: finalformattedDate } : undefined
+      );
+    }
+  };
+
+  const handleSubmitPress = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
+    //TO DO: Create removeReport mutation to remove report if successfully created OTSReport & OTSMachine
+    let formErrors: boolean = false;
+    if (!newOTSReport?.date || !newOTSReport?.shiftNumber) {
+      setOTSReportError(true);
+      formErrors = true;
+    } else {
+      setOTSReportError(false);
+    }
+    newOTSMachines.forEach((machine) => {
+      if (
+        !machine.machine ||
+        !machine.machineStatus ||
+        !machine.partsMade ||
+        !machine.lotNumber
+      ) {
+        setOTSMachinesError(true);
+        formErrors = true;
+      } else {
+        setOTSMachinesError(false);
+      }
+    });
+
+    if (formErrors === false) {
+      const { data: reportOTSData } = await createOTSReport({
+        variables: { report: newOTSReport },
+      });
+
+      if (reportOTSData.createOTSReport) {
+        const { data: machineOTSData } = await saveOTSMachines({
+          variables: {
+            reportId: reportOTSData.createOTSReport._id,
+            machine: newOTSMachines,
+          },
+        });
+        if (machineOTSData.saveOTSMachines) {
+          setSuccessOTSReport(true);
+          console.log("reportId", reportId);
+          const { data: removedReport } = await removeReport({
+            variables: { reportId: reportId },
+          });
+          if (removedReport.removeReport) {
+            setTimeout(() => {
+              navigate("/OTS");
+            }, 2000);
+          }
+        }
+      }
+    }
   };
 
   return (
@@ -100,7 +164,7 @@ const OTSView = () => {
               id="shift-option"
               className="form-select form-select-lg mb-3 form-custom"
               aria-label=".form-select-lg example"
-              value={shiftNumber?.toString()}
+              value={shiftNumberOTS}
               onChange={handleShiftChange}
             >
               <option value={1}>Shift 1</option>
@@ -115,7 +179,7 @@ const OTSView = () => {
                     id="ots-date"
                     className="form-control"
                     type="date"
-                    value={date?.toString()}
+                    value={dateOTS}
                     onChange={handleDateChange}
                   />
                 </div>
@@ -124,7 +188,7 @@ const OTSView = () => {
           </div>
 
           <HStack>
-            {savedMachines.map((data: Machine, index: number) => (
+            {newOTSMachines.map((data: OTSMachine, index: number) => (
               <div className="machineCol" key={index}>
                 {/* Machine filter & select question */}
                 <div id="ots-machine">
@@ -184,8 +248,8 @@ const OTSView = () => {
                       );
                     }}
                   >
-                    <option value={"UP"}>Up</option>
-                    <option value={"DOWN"}>Down</option>
+                    <option value={"up"}>Up</option>
+                    <option value={"down"}>Down</option>
                   </select>
                 </div>
 
@@ -198,9 +262,15 @@ const OTSView = () => {
                       type="number"
                       className="form-control form-custom"
                       step="1"
-                      value={Number(data?.partsMade)}
+                      value={
+                        data?.partsMade !== undefined &&
+                        data?.partsMade !== null
+                          ? Number(data.partsMade)
+                          : ""
+                      }
                       onChange={(e) => {
-                        const updatedPartsMade = Number(e.target.value);
+                        const updatedPartsMade =
+                          e.target.value === "" ? null : Number(e.target.value);
 
                         setNewOTSMachines((prev) =>
                           prev.map((machineData, i) => {
@@ -254,8 +324,10 @@ const OTSView = () => {
                       type="number"
                       className="form-control form-custom"
                       step="1"
+                      value={data?.lotNumber || ""}
                       onChange={(e) => {
-                        const updatedLotNumber = Number(e.target.value);
+                        const updatedLotNumber =
+                          e.target.value === "" ? null : Number(e.target.value);
 
                         setNewOTSMachines((prev) =>
                           prev.map((machineData, i) => {
@@ -275,6 +347,27 @@ const OTSView = () => {
               </div>
             ))}
           </HStack>
+          <h3
+            className="OTSReport-error"
+            style={{ display: OTSReportError ? "block" : "none" }}
+          >
+            OTS report cannot be saved! Please check if date & shift number are
+            correctly selected.
+          </h3>
+          <h3
+            className="OTSMachines-error"
+            style={{ display: OTSMachinesError ? "block" : "none" }}
+          >
+            Machines cannot be saved to OTS report! Please check to ensure all
+            form fields are entered correctly. Comments are optional and do not
+            need to be filled out.
+          </h3>
+          <h3
+            className="success-user"
+            style={{ display: successOTSReport ? "block" : "none" }}
+          >
+            OTS Report Successfully Created & Saved!
+          </h3>
           <button
             type="submit"
             className="btn btn-lg btn-block btn-custom"

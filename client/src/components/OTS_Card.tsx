@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Machine } from "../models/Machine";
 
 interface OTS_CardProps {
+  _id: string;
   date: string;
   shift: string;
   creatorId: string;
@@ -22,6 +23,7 @@ const OTS_Card = (props: OTS_CardProps) => {
         date: props.date,
         assignedUserId: props.creatorId,
         savedMachines: props.savedMachines,
+        reportId: props._id,
       },
     });
   };
@@ -33,7 +35,6 @@ const OTS_Card = (props: OTS_CardProps) => {
   } = useQuery(GET_USER_ID, {
     variables: { userId: props.creatorId },
   });
-  console.log("userData:", userData);
 
   return (
     <Card.Root

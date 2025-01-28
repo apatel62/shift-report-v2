@@ -1,4 +1,5 @@
 import Report from '../models/report.js';
+import OTSReport from '../models/OTSReport.js';
 import { ReportDocument } from '../models/report.js';
 import User from '../models/user.js';
 import { signToken } from '../services/auth.js';
@@ -103,6 +104,27 @@ interface UserIdArgs {
     userId: string;  
   }
 
+  interface CreateOTSReportArgs {
+    report: {
+        shiftNumber: string;
+        date: Date;
+        assignedUserId: string;
+    }
+}
+
+interface SaveOTSMachineArgs {
+    reportId: string;
+    machine: {
+        machine: string;
+        machineStatus: string;
+        partsMade: number;
+        comments?: string;
+    }
+}
+interface ReportIdArgs {
+    reportId: string;  
+  }
+
 //Function that formats the date so its in MM-dd-YYYY 
 const formatDate = (date: Date): string => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Month is 0-indexed
@@ -150,7 +172,6 @@ const resolvers = {
             try {
                 if (context.user) {
                     const userObjectId = new ObjectId(userId);
-                    console.log(userObjectId);
                     const user = await User.findOne({ _id: userObjectId });
                     return user; 
                 } else {
@@ -383,6 +404,67 @@ const resolvers = {
                 console.error({ message: "Cannot download pdf from doc Id" });
                 throw new Error('Failed to download pdf from doc Id');
             }
+        },
+
+        //createOTSReport creates an OTSReport document when supervisors approve a shift report
+        //returns created OTSReport where its _id will be used to save the that shift report's machines to this report
+        createOTSReport: async(_parent: unknown, reportArgs: CreateOTSReportArgs, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const reportOTS = await OTSReport.create(reportArgs.report); 
+                    await User.findOneAndUpdate(
+                        { _id: context.user._id},
+                        { $addToSet: { savedOTSReports: reportOTS._id } },
+                        { new: true, runValidators: true }
+                      );
+                      return reportOTS;
+                } else {
+                    throw new Error('Context user works but failed to save OTSReport to user');
+                }
+              } catch (error) {
+                console.log(error);
+                console.error({ message: "Cannot create OTRReport and save to user" });
+                throw new Error('Failed to create OTSReport and save it to user');
+              }
+        },
+        
+        //saveOTSMachines saves the machines to the corresponding OTSReport via its _id which is passed along as an argument
+        saveOTSMachines: async(_parent: unknown, machineArgs: SaveOTSMachineArgs, context: IUserContext) => {
+            try{
+                if(context.user) {
+                    const updatedOTSReport = await OTSReport.findByIdAndUpdate(
+                        {_id: machineArgs?.reportId},
+                        { $addToSet: { savedMachines: machineArgs.machine } },
+                        { new: true, runValidators: true }
+                    );
+
+                    return updatedOTSReport;
+
+                } else {
+                    console.error({ message: "Couldn't find OTSReport associated to this user!" });
+                    throw new Error('Failed to find OTSReport to this user');            
+                }
+            } catch (error) {
+                console.log(error);
+                console.error({ message: "Cannot save machine to OTSReport" });
+                throw new Error('Failed to save machine to OTSReport');
+            }
+        },
+
+        removeReport: async(_parent: unknown, {reportId}: ReportIdArgs, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const id = new ObjectId(reportId);
+                    await Report.deleteOne({_id: id});
+                    return "Report has been removed"; 
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error deleting report with id', error);
+                throw new Error('Failed to delete report with id');
+            }
+
         },
     },
 

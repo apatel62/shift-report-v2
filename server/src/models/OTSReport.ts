@@ -1,5 +1,5 @@
 import { Schema, model, type Document } from 'mongoose';
-import OTSMachineSchema from './OTSMachine';
+import OTSMachineSchema from './OTSMachine.js';
 import type { OTSMachineDocument } from './OTSMachine';
 
 
