@@ -226,7 +226,7 @@ const OTSView = () => {
 
                 {/* Up/Down select question */}
                 <div id="ots-up-down">
-                  <h2>Machine Status</h2>
+                  <h2>Machine Status:</h2>
                   <select
                     id="ots-up-down-select"
                     className="form-select form-select-lg mb-3 form-custom"
