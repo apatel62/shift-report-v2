@@ -153,6 +153,7 @@ const ShiftReport = () => {
         setLoginError(true);
       }
     } catch (err) {
+      setLoginError(true);
       console.error("Failed to login", err);
     }
   };

@@ -226,7 +226,7 @@ const OTSView = () => {
 
                 {/* Up/Down select question */}
                 <div id="ots-up-down">
-                  <h2>Machine Status</h2>
+                  <h2>Machine Status:</h2>
                   <select
                     id="ots-up-down-select"
                     className="form-select form-select-lg mb-3 form-custom"
@@ -358,9 +358,8 @@ const OTSView = () => {
             className="OTSMachines-error"
             style={{ display: OTSMachinesError ? "block" : "none" }}
           >
-            Machines cannot be saved to OTS report! Please check to ensure all
-            form fields are entered correctly. Comments are optional and do not
-            need to be filled out.
+            Failed to approve! Ensure all form fields are entered correctly.
+            Comments are optional.
           </h3>
           <h3
             className="success-user"

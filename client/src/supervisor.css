@@ -1,13 +1,17 @@
 /* supervisor.css */
 
 :root {
-  --text: #ffffff; 
-  --primary: #1d3557; 
-  --secondary: #457b9d; 
-  --accent: #e63946; 
-  --danger: #d72638; 
-  --background-dark: #2a3a50; 
-  --background-light: #3d5a80; 
+  --text: #ffffff;
+  --primary: #1d3557;
+  --secondary: #457b9d;
+  --accent: #e63946;
+  --danger: #d72638;
+  --background-dark: #2a3a50;
+  --background-light: #3d5a80;
+}
+
+* {
+  font-family: "Outfit", sans-serif;
 }
 
 /* General Styling */
@@ -92,7 +96,9 @@ body {
 }
 
 .login-error,
-.addUser-error {
+.addUser-error,
+.OTSReport-error,
+.OTSMachines-error {
   color: var(--danger);
   margin-top: 20px;
   font-style: initial;
@@ -217,7 +223,6 @@ span {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  
 }
 
 /* Navbar subtitle with border */
@@ -229,9 +234,9 @@ span {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  border: 2px solid var(--primary); 
+  border: 2px solid var(--primary);
   padding: 10px;
-  border-radius: 10px;  
+  border-radius: 10px;
 }
 
 .navItem {
@@ -250,7 +255,7 @@ span {
   color: var(--text);
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s;
-  border: 2px solid var(--primary);  
+  border: 2px solid var(--primary);
 }
 
 .nav-link:hover,
@@ -311,6 +316,10 @@ label[for="endDate"] {
   background-color: var(--background-light);
 }
 
+.table-custom tbody tr {
+  color: var(--text);
+}
+
 canvas {
   width: 75%;
   height: 200px;
@@ -333,7 +342,7 @@ canvas {
 
 .chakra-stack {
   display: flex;
-  flex-direction: column;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
   margin-top: 50px;
@@ -347,112 +356,112 @@ canvas {
 
 .chakra-card__footer button {
   background-color: var(--primary);
-  color: black;
+  color: var(--text);
   width: 100%;
 }
 
 /* Adjusts spacing and position in navbar depending on screen width */
 @media (max-width: 1300px) {
   .shift-title {
-      margin-top: 0px;
+    margin-top: 0px;
   }
 
   .datepicker {
-      margin-top: 0px;
+    margin-top: 0px;
   }
 
   .navbar-title {
-      font-size: 1.5rem;
+    font-size: 1.5rem;
   }
 
   .navbar-subtitle {
-      margin-top: 3rem;
-      font-size: 0.75rem;
+    margin-top: 3rem;
+    font-size: 0.75rem;
   }
 
   .navbar-custom {
-      align-items: flex-start;
+    align-items: flex-start;
   }
 
   .navItem {
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: flex-start;
-      margin-top: 0px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 0px;
   }
 
   .nav-link,
   .logoff {
-      font-size: 0.9rem;
+    font-size: 0.9rem;
   }
 
   .nav-bottom {
-      margin-top: 10px;
+    margin-top: 10px;
   }
 
   .logoff {
-      position: static;
-      margin-top: 10px;
-      margin-left: 20px;
+    position: static;
+    margin-top: 10px;
+    margin-left: 20px;
   }
 
   .form-custom-1,
   .btn-custom-1 {
-      width: 60%;
+    width: 60%;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-      padding: 15px 30px;
+    padding: 15px 30px;
   }
 }
 
 @media (max-width: 912px) {
   .navbar-title {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .navbar-subtitle {
-      margin-top: 2.5rem;
-      font-size: 0.6rem;
+    margin-top: 2.5rem;
+    font-size: 0.6rem;
   }
 
   .nav-link {
-      font-size: 0.7rem;
-      margin-left: 10px;
+    font-size: 0.7rem;
+    margin-left: 10px;
   }
 
   .logoff {
-      font-size: 0.7rem;
+    font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-      padding: 10px 25px;
+    padding: 10px 25px;
   }
 }
 
 @media (max-width: 625px) {
   .navbar-title {
-      font-size: 1rem;
+    font-size: 1rem;
   }
 
   .navbar-subtitle {
-      margin-top: 4rem;
-      font-size: 0.6rem;
+    margin-top: 4rem;
+    font-size: 0.6rem;
   }
 
   .nav-link {
-      font-size: 0.7rem;
-      margin-left: 2px;
+    font-size: 0.7rem;
+    margin-left: 2px;
   }
 
   .logoff {
-      font-size: 0.7rem;
+    font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-      padding: 5px 15px;
+    padding: 5px 15px;
   }
 }
