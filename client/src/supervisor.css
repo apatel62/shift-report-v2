@@ -1,14 +1,16 @@
-/* sets color styles */
+/* supervisor.css */
+
 :root {
-  --text: #f0f4f8; 
-  --primary: #2c3e50; 
-  --secondary: #3498db; 
-  --accent: #f39c12; 
-  --danger: #e74c3c; 
-  --background-dark: #2c3e50; 
-  --background-light: #34495e; 
+  --text: #ffffff; 
+  --primary: #1d3557; 
+  --secondary: #457b9d; 
+  --accent: #e63946; 
+  --danger: #d72638; 
+  --background-dark: #2a3a50; 
+  --background-light: #3d5a80; 
 }
 
+/* General Styling */
 .wait-text {
   color: var(--text);
 }
@@ -36,11 +38,11 @@ h3 {
 body {
   background-image: linear-gradient(
     to right top,
-    #2c3e50,
-    #34495e,
-    #5d6d7e,
-    #85929e,
-    #aab7b8
+    var(--background-dark),
+    var(--background-light),
+    var(--secondary),
+    var(--accent),
+    #f1faee
   );
   background-size: cover;
   background-position: center;
@@ -90,9 +92,7 @@ body {
 }
 
 .login-error,
-.addUser-error,
-.OTSReport-error,
-.OTSMachines-error {
+.addUser-error {
   color: var(--danger);
   margin-top: 20px;
   font-style: initial;
@@ -145,14 +145,14 @@ span {
 }
 
 .btn-custom:hover {
-  background-color: #34495e;
+  background-color: var(--secondary);
   color: var(--text);
   transition: min-height 0.3s ease;
 }
 
 .btn-custom-1:hover {
   color: var(--text);
-  background-color: #34495e;
+  background-color: var(--secondary);
 }
 
 .form-custom,
@@ -173,24 +173,41 @@ span {
   transition: min-height 0.3s ease;
 }
 
-/* Logoff button (right side) */
+/* Logoff button (right side) with border */
 .logoff {
-  color: var(--text);
+  color: var(--primary);
   font-size: 20px;
   background: none;
-  border: none;
+  border: 2px solid var(--primary); /* Adding border */
   cursor: pointer;
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s;
-  margin-left: 0;
+  margin-left: 15px;
   padding: 10px;
   border-radius: 10px;
 }
 
 .logoff:hover {
-  background-color: #34495e;
+  color: var(--text);
+  background-color: var(--secondary);
+}
+.createAccount {
+  color: var(--primary);
+  font-size: 20px;
+  background: none;
+  border: 2px solid var(--primary); /* Adding border */
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10px;
+  border-radius: 10px;
 }
 
+.createAccount:hover {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+/* Navbar title with border */
 .navbar-title {
   flex-grow: 1;
   text-align: center;
@@ -200,8 +217,10 @@ span {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  
 }
 
+/* Navbar subtitle with border */
 .navbar-subtitle {
   flex-grow: 1;
   text-align: center;
@@ -210,6 +229,9 @@ span {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  border: 2px solid var(--primary); 
+  padding: 10px;
+  border-radius: 10px;  
 }
 
 .navItem {
@@ -227,20 +249,18 @@ span {
   border-radius: 10px;
   color: var(--text);
   text-decoration: none;
-  border: 2px solid grey; 
-  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
+  border: 2px solid var(--primary);  
 }
 
 .nav-link:hover,
 .chakra-button:hover {
-  background-color: #34495e;
-  border-color: var(--text);
+  background-color: var(--secondary);
 }
 
 .nav-link.active,
 .chakra-button.active {
   background-color: var(--primary);
-  border-color: grey; 
 }
 
 .datepicker {
@@ -284,7 +304,7 @@ label[for="endDate"] {
 }
 
 .table-custom tbody tr:nth-child(odd) {
-  background-color: var(--text);
+  background-color: var(--background-dark);
 }
 
 .table-custom tbody tr:nth-child(even) {
@@ -331,108 +351,108 @@ canvas {
   width: 100%;
 }
 
-/* adjusts spacing and position in navbar depending on screen width */
+/* Adjusts spacing and position in navbar depending on screen width */
 @media (max-width: 1300px) {
   .shift-title {
-    margin-top: 0px;
+      margin-top: 0px;
   }
 
   .datepicker {
-    margin-top: 0px;
+      margin-top: 0px;
   }
 
   .navbar-title {
-    font-size: 1.5rem;
+      font-size: 1.5rem;
   }
 
   .navbar-subtitle {
-    margin-top: 3rem;
-    font-size: 0.75rem;
+      margin-top: 3rem;
+      font-size: 0.75rem;
   }
 
   .navbar-custom {
-    align-items: flex-start;
+      align-items: flex-start;
   }
 
   .navItem {
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    margin-top: 0px;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      margin-top: 0px;
   }
 
   .nav-link,
   .logoff {
-    font-size: 0.9rem;
+      font-size: 0.9rem;
   }
 
   .nav-bottom {
-    margin-top: 10px;
+      margin-top: 10px;
   }
 
   .logoff {
-    position: static;
-    margin-top: 10px;
-    margin-left: 20px;
+      position: static;
+      margin-top: 10px;
+      margin-left: 20px;
   }
 
   .form-custom-1,
   .btn-custom-1 {
-    width: 60%;
+      width: 60%;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-    padding: 15px 30px;
+      padding: 15px 30px;
   }
 }
 
 @media (max-width: 912px) {
   .navbar-title {
-    font-size: 1rem;
+      font-size: 1rem;
   }
 
   .navbar-subtitle {
-    margin-top: 2.5rem;
-    font-size: 0.6rem;
+      margin-top: 2.5rem;
+      font-size: 0.6rem;
   }
 
   .nav-link {
-    font-size: 0.7rem;
-    margin-left: 10px;
+      font-size: 0.7rem;
+      margin-left: 10px;
   }
 
   .logoff {
-    font-size: 0.7rem;
+      font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-    padding: 10px 25px;
+      padding: 10px 25px;
   }
 }
 
 @media (max-width: 625px) {
   .navbar-title {
-    font-size: 1rem;
+      font-size: 1rem;
   }
 
   .navbar-subtitle {
-    margin-top: 4rem;
-    font-size: 0.6rem;
+      margin-top: 4rem;
+      font-size: 0.6rem;
   }
 
   .nav-link {
-    font-size: 0.7rem;
-    margin-left: 2px;
+      font-size: 0.7rem;
+      margin-left: 2px;
   }
 
   .logoff {
-    font-size: 0.7rem;
+      font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
-    padding: 5px 15px;
+      padding: 5px 15px;
   }
 }

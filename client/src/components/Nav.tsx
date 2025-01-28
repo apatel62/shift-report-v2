@@ -91,8 +91,8 @@ const Nav = () => {
         to="/CreateAccount"
         className={
           currentPage === "/CreateAccount"
-            ? "nav-bottom nav-link active"
-            : "nav-bottom nav-link"
+            ? "createAccount"
+            : "createAccount"
         }
         style={{
           display:
