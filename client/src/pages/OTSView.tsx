@@ -161,7 +161,7 @@ const OTSView = () => {
           <div>
             <h2>Shift Number:</h2>
             <select
-              id="shift-option"
+              id="ots-shift-option"
               className="form-select form-select-lg mb-3 form-custom"
               aria-label=".form-select-lg example"
               value={shiftNumberOTS}
@@ -172,18 +172,14 @@ const OTSView = () => {
             </select>
 
             <div className="datepicker">
-              <div className="row justify-content-center">
-                <div className="col-lg-3 col-sm-6">
-                  <label htmlFor="startDate">From</label>
-                  <input
-                    id="ots-date"
-                    className="form-control"
-                    type="date"
-                    value={dateOTS}
-                    onChange={handleDateChange}
-                  />
-                </div>
-              </div>
+              <label htmlFor="startDate">Date:</label>
+              <input
+                id="ots-date"
+                className="form-control"
+                type="date"
+                value={dateOTS}
+                onChange={handleDateChange}
+              />
             </div>
           </div>
 
@@ -369,7 +365,7 @@ const OTSView = () => {
           </h3>
           <button
             type="submit"
-            className="btn btn-lg btn-block btn-custom"
+            className="btn btn-lg btn-block btn-custom ots-submit"
             onClick={handleSubmitPress}
           >
             Submit Approval

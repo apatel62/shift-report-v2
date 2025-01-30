@@ -221,9 +221,8 @@ span {
 .navbar-title {
   flex-grow: 1;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.1rem;
   margin: 0;
-  margin-top: 1rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -234,7 +233,7 @@ span {
   flex-grow: 1;
   text-align: center;
   font-size: 1rem;
-  margin-top: 3.75rem;
+  margin-top: 4.5rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -273,7 +272,7 @@ span {
 }
 
 .datepicker {
-  margin-top: 50px;
+  margin-top: 10px;
   color: var(--text);
 }
 
@@ -349,7 +348,7 @@ canvas {
   flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 
 .chakra-card__body h3,
@@ -373,23 +372,35 @@ canvas {
   margin-top: 5rem;
 }
 
+#ots-shift-option {
+  width: 15%;
+}
+
+#ots-date {
+  width: 15%;
+  margin: 0 auto;
+}
+
+.ots-submit {
+  margin-top: 2rem;
+  width: 20%;
+  line-height: 3rem;
+}
+
 /* Adjusts spacing and position in navbar depending on screen width */
 @media (max-width: 1300px) {
   .shift-title {
     margin-top: 0px;
   }
 
-  .datepicker {
-    margin-top: 0px;
-  }
-
   .navbar-title {
-    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-size: 2rem;
   }
 
   .navbar-subtitle {
-    margin-top: 3rem;
-    font-size: 0.75rem;
+    margin-top: 4rem;
+    font-size: 1rem;
   }
 
   .navbar-custom {
@@ -428,16 +439,25 @@ canvas {
   .table-custom tbody td {
     padding: 15px 30px;
   }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 15%;
+  }
+
+  .ots-submit {
+    width: 25%;
+  }
 }
 
 @media (max-width: 912px) {
   .navbar-title {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
 
   .navbar-subtitle {
-    margin-top: 2.5rem;
-    font-size: 0.6rem;
+    margin-top: 3.2rem;
+    font-size: 0.8rem;
   }
 
   .nav-link {
@@ -464,16 +484,25 @@ canvas {
   .btn-custom-1 {
     width: 40%;
   }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 20%;
+  }
+
+  .ots-submit {
+    width: 35%;
+  }
 }
 
 @media (max-width: 625px) {
   .navbar-title {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .navbar-subtitle {
-    margin-top: 4rem;
-    font-size: 0.6rem;
+    margin-top: 9rem;
+    font-size: 0.9rem;
   }
 
   .nav-link {
@@ -493,6 +522,15 @@ canvas {
 
   .form-custom-1,
   .btn-custom-1 {
+    width: 45%;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 30%;
+  }
+
+  .ots-submit {
     width: 45%;
   }
 }
