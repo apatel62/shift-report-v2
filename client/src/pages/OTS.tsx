@@ -22,11 +22,12 @@ const OTS = () => {
       setLoginCheck(true);
     }
   };
+  const { loading, error, data: AllReportData, refetch } = useQuery(GET_ALL_REPORTS);
 
   useEffect(() => {
     checkLogin();
+    refetch();
   }, []);
-  const { loading, error, data: AllReportData } = useQuery(GET_ALL_REPORTS);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
