@@ -1,11 +1,14 @@
 import Report from '../models/report.js';
+import OTSReport from '../models/OTSReport.js';
 import { ReportDocument } from '../models/report.js';
 import User from '../models/user.js';
 import { signToken } from '../services/auth.js';
-import sgMail from "@sendgrid/mail";
-//console.log(process.env.SENDGRID_API_KEY);
+import sgMail from "@sendgrid/mail";                           //imports SendGrid API
 import { GraphQLScalarType, Kind } from 'graphql';
-// Custom Date Scalar
+import { ObjectId } from 'mongodb';
+
+
+//Custom Date Scalar to define Date type in GraphQL
 const DateScalar = new GraphQLScalarType({
     name: 'Date',
     description: 'A custom scalar type for Date',
@@ -29,6 +32,7 @@ const DateScalar = new GraphQLScalarType({
     },
   });
 
+//Interfaces created for the arguments passed from the client to GraphQL to the server
 interface User {
     _id: string;
     username: string;
@@ -97,9 +101,31 @@ interface GetPDFArgs {
 }
 
 interface UserIdArgs {
-    userId: string;  // Type the 'userId' argument as a string
+    userId: string;  
   }
 
+  interface CreateOTSReportArgs {
+    report: {
+        shiftNumber: string;
+        date: Date;
+        assignedUserId: string;
+    }
+}
+
+interface SaveOTSMachineArgs {
+    reportId: string;
+    machine: {
+        machine: string;
+        machineStatus: string;
+        partsMade: number;
+        comments?: string;
+    }
+}
+interface ReportIdArgs {
+    reportId: string;  
+  }
+
+//Function that formats the date so its in MM-dd-YYYY 
 const formatDate = (date: Date): string => {
     const month = ("0" + (date.getMonth() + 1)).slice(-2); // Month is 0-indexed
     const day = ("0" + date.getDate()).slice(-2);
@@ -108,9 +134,12 @@ const formatDate = (date: Date): string => {
     return `${month}-${day}-${year}`;
   };
 
+//Resolvers defined to handle the requests made from the client and the corresponding data is returned from the database
 const resolvers = {
     Date: DateScalar,
+    //Queries are used to read and retrieve data from the database
     Query: {
+        //me query returns the user that is logged in
         me: async(_parent: unknown, _args: unknown, context: IUserContext) => {
             try {
                 if (context.user) {
@@ -123,6 +152,7 @@ const resolvers = {
                 throw new Error('Failed to fetch user data');
             }
         },
+        //getAllReports returns an array of Report documents within the collection used to display the tiles for supervisors to look over & approve on OTS page
         getAllReports: async(_parent: unknown, _args: unknown, context: IUserContext) => {
             try {
                 if (context.user) {
@@ -136,22 +166,27 @@ const resolvers = {
                 throw new Error('Failed to fetch reports');
             }
         },
+        //getUserById returns the user based on the userId provided
+        //Used for tiles on OTS page so supervisors know who created the report
         getUserById: async(_parent: unknown, {userId}: UserIdArgs, context: IUserContext) => {
             try {
                 if (context.user) {
-                    const user = await User.findById(userId);
-                    return user;
+                    const userObjectId = new ObjectId(userId);
+                    const user = await User.findOne({ _id: userObjectId });
+                    return user; 
                 } else {
                     return;
                 }
+                
             } catch (error) {
                 console.error('Error fetching user with id', error);
                 throw new Error('Failed to fetch user with id');
             }
         },
     },
-
+    //Mutations are used to modify documents in the collections
     Mutation: {
+        //login will check if user is in collection and log them in
         login: async (_parent: unknown, {username, password}: LoginArgs) => {
             const user = await User.findOne({ username: username});
             if (!user) {
@@ -168,17 +203,17 @@ const resolvers = {
               const token = signToken(user.username, user.email, user.role, user._id);
               return ({ token, user });
         },
-
+        //adduser will allow sueprvisors to create an account on behalf of someone
         addUser: async(_parent: unknown, {username, email, role, password}: AddUserArgs) => {
             const user = await User.create({username, email, role, password});
             if (!user) {
                 console.error({ message: "Cannot create user" });
                 throw new Error('Failed to create user');
               }
-            //const token = signToken(user.username, user.password, user.role, user._id);
             return user;
         },
-
+        //createReport allows users to submit a shift report into the database
+        //also adds the newly created report's id to the user document's savedReports array
         createReport: async(_parent: unknown, reportArgs: CreateReportArgs, context: IUserContext) => {
             try {
                 if (context.user) {
@@ -198,16 +233,17 @@ const resolvers = {
                 throw new Error('Failed to create report and save it to user');
               }
         },
-
+        //saveMachine allows users to add mutiple machines to the report they created
         saveMachine: async(_parent: unknown, machineArgs: SaveMachineArgs, context: IUserContext) => {
             try{
                 if(context.user) {
-                    const user = await User.findById(context.user._id).populate('savedReports').sort({date: -1});
+                    const user = await User.findById(context.user._id).populate('savedReports').sort({date: -1}); //populates & sorts the reports saved in that user's savedReport array by date
                     if(user?.savedReports.length === 0) {
                         throw new Error("No reports found for this user.");
                     }
                     const reports = user?.savedReports as unknown as ReportDocument[];
-                    const mostRecentReport = reports[0]; 
+                    const mostRecentReport = reports[0];    //grabs most recent date
+                    //updates that report by adding the machine info into savedMachines array
                     const updatedReport = await Report.findByIdAndUpdate(
                         {_id: mostRecentReport?._id},
                         { $addToSet: { savedMachines: machineArgs.machine } },
@@ -226,7 +262,7 @@ const resolvers = {
                 throw new Error('Failed to save machine to report');
             }
         },
-
+        //sends the email via SendGrid API out to supervisors after user are done filling out their report
         sendEmail: async(_parent: unknown, sendEmailArgs: SendEmailArgs, context: IUserContext) => {
             sgMail.setApiKey(process.env.SENDGRID_API_KEY || "");
             try{
@@ -248,7 +284,7 @@ const resolvers = {
                         ];
                         const msg = {
                               to: supervisorEmails,
-                              from: "arjunpatel9217@gmail.com", // Use the email address or domain you verified above
+                              from: "arjunpatel9217@gmail.com", 
                               subject: "Shift Report",
                               html: emailHTML.join("\n"),
                             };
@@ -267,10 +303,10 @@ const resolvers = {
                 throw new Error('Failed to send out to everyone');
             }
         },
-        
+        //When users are on the Shift History page, the requested reports will be returned based on the date range they specified on the front-end
         getHistory: async(_parent: unknown, getHistoryArgs: GetHistoryArgs) => {
             try{
-                const reports = await Report.find({
+                const reports = await OTSReport.find({
                     date: {$gte: new Date(getHistoryArgs.history.startDate), $lte: new Date(getHistoryArgs.history.endDate)},
                     'savedMachines.machine': {$in: getHistoryArgs.history.selectedMachines},
                 });
@@ -287,7 +323,9 @@ const resolvers = {
                 throw new Error('Failed to get history of requested dates');
             }
         },
-
+        //CreatePDF generates the pdf based on the user's requested report history data
+        //PDF is in same format like the table shown in the front-end of Shift History page
+        //returns the docId to the client
         createPDF: async(_parent: unknown, createPDFArgs: CreatePDFArgs) => {
             try{
                 const response = await fetch("https://api.pdfmonkey.io/api/v1/documents", {
@@ -332,7 +370,8 @@ const resolvers = {
                 throw new Error('Failed to create pdf from user requested data');
             }
         },
-
+        //GetPDF returns the download link of the requested PDF so users can download it
+        //Takes in the docID from createPDF 
         getPDF: async(_parent: unknown, getPDFArgs: GetPDFArgs) => {
             try{
                 const response = await fetch(
@@ -365,6 +404,67 @@ const resolvers = {
                 console.error({ message: "Cannot download pdf from doc Id" });
                 throw new Error('Failed to download pdf from doc Id');
             }
+        },
+
+        //createOTSReport creates an OTSReport document when supervisors approve a shift report
+        //returns created OTSReport where its _id will be used to save the that shift report's machines to this report
+        createOTSReport: async(_parent: unknown, reportArgs: CreateOTSReportArgs, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const reportOTS = await OTSReport.create(reportArgs.report); 
+                    await User.findOneAndUpdate(
+                        { _id: context.user._id},
+                        { $addToSet: { savedOTSReports: reportOTS._id } },
+                        { new: true, runValidators: true }
+                      );
+                      return reportOTS;
+                } else {
+                    throw new Error('Context user works but failed to save OTSReport to user');
+                }
+              } catch (error) {
+                console.log(error);
+                console.error({ message: "Cannot create OTRReport and save to user" });
+                throw new Error('Failed to create OTSReport and save it to user');
+              }
+        },
+        
+        //saveOTSMachines saves the machines to the corresponding OTSReport via its _id which is passed along as an argument
+        saveOTSMachines: async(_parent: unknown, machineArgs: SaveOTSMachineArgs, context: IUserContext) => {
+            try{
+                if(context.user) {
+                    const updatedOTSReport = await OTSReport.findByIdAndUpdate(
+                        {_id: machineArgs?.reportId},
+                        { $addToSet: { savedMachines: machineArgs.machine } },
+                        { new: true, runValidators: true }
+                    );
+
+                    return updatedOTSReport;
+
+                } else {
+                    console.error({ message: "Couldn't find OTSReport associated to this user!" });
+                    throw new Error('Failed to find OTSReport to this user');            
+                }
+            } catch (error) {
+                console.log(error);
+                console.error({ message: "Cannot save machine to OTSReport" });
+                throw new Error('Failed to save machine to OTSReport');
+            }
+        },
+
+        removeReport: async(_parent: unknown, {reportId}: ReportIdArgs, context: IUserContext) => {
+            try {
+                if (context.user) {
+                    const id = new ObjectId(reportId);
+                    await Report.deleteOne({_id: id});
+                    return "Report has been removed"; 
+                } else {
+                    return;
+                }
+            } catch (error) {
+                console.error('Error deleting report with id', error);
+                throw new Error('Failed to delete report with id');
+            }
+
         },
     },
 

@@ -1,15 +1,17 @@
-/*sets color styles */
+/* sets color styles */
 :root {
-  --text: #ffffff;
-  --primary: #e0b22d;
-  --secondary: #d76d26;
+  --text: #f0f4f8;
+  --primary: #2c3e50;
+  --secondary: #3498db;
+  --accent: #f39c12;
+  --danger: #e74c3c;
+  --background-dark: #2c3e50;
+  --background-light: #34495e;
 }
 
-/* * {
-  margin: 0;
-  padding: 0;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-} */
+* {
+  font-family: "Outfit", sans-serif;
+}
 
 .wait-text {
   color: var(--text);
@@ -38,11 +40,11 @@ h3 {
 body {
   background-image: linear-gradient(
     to right top,
-    #787f21,
-    #696217,
-    #574711,
-    #412f0c,
-    #2a1a01
+    #2c3e50,
+    #34495e,
+    #5d6d7e,
+    #85929e,
+    #aab7b8
   );
   background-size: cover;
   background-position: center;
@@ -51,13 +53,12 @@ body {
 }
 
 .login-notice {
-  /* Center the login form */
   display: flex;
   flex-direction: column;
-  justify-content: center; /*Vertically center */
-  height: 100vh; /* Take up full viewport height */
-  width: 100%; /* Make the div take up full width */
-  text-align: center; /* Center text inside the div */
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
 }
 
 .login-form {
@@ -93,22 +94,24 @@ body {
 }
 
 .login-error,
-.addUser-error {
-  color: purple;
+.addUser-error,
+.OTSReport-error,
+.OTSMachines-error {
+  color: var(--danger);
   margin-top: 20px;
   font-style: initial;
 }
 
 .success-user {
-  color: turquoise;
+  color: #1abc9c;
   margin-top: 20px;
   font-style: initial;
 }
 
 .btn-custom-1 {
   color: var(--text);
-  background-color: #e0b22d;
-  border-color: #e0b22d;
+  background-color: var(--primary);
+  border-color: var(--primary);
   margin: 20px auto;
   width: 25%;
   box-shadow: var(--bs-box-shadow) !important;
@@ -137,24 +140,23 @@ span {
   margin-top: 10px;
 }
 
-/* !important insures that the style is always applied*/
 .btn-custom {
   color: var(--text);
-  background-color: #e0b22d;
+  background-color: var(--primary);
   margin: 20px auto;
   width: 50%;
   box-shadow: var(--bs-box-shadow) !important;
 }
 
 .btn-custom:hover {
-  background-color: #a7830d;
+  background-color: #34495e;
   color: var(--text);
   transition: min-height 0.3s ease;
 }
 
 .btn-custom-1:hover {
   color: var(--text);
-  background-color: #a7830d;
+  background-color: #34495e;
 }
 
 .form-custom,
@@ -166,13 +168,13 @@ span {
 /* Navbar container */
 .navbar-custom {
   display: flex;
-  justify-content: space-between; /* Ensure space between logoff button and navItem */
-  align-items: center; /* Vertically center all elements */
+  justify-content: space-between;
+  align-items: center;
   color: var(--text);
   padding: 10px 20px;
   position: relative;
-  min-height: 60px; /* Set a minimum height for the navbar */
-  transition: min-height 0.3s ease; /* Smooth transition when resizing */
+  min-height: 60px;
+  transition: min-height 0.3s ease;
 }
 
 /* Logoff button (right side) */
@@ -184,19 +186,19 @@ span {
   cursor: pointer;
   text-decoration: none;
   transition: color 0.3s, background-color 0.3s;
-  margin-left: 0; /* Logoff stays on the right side */
+  margin-left: 0;
   padding: 10px;
   border-radius: 10px;
 }
 
 .logoff:hover {
-  background-color: #a7830d;
+  background-color: #34495e;
 }
 
 .navbar-title {
   flex-grow: 1;
   text-align: center;
-  font-size: 2rem;
+  font-size: 2.1rem;
   margin: 0;
   margin-top: 1rem;
   position: absolute;
@@ -208,7 +210,7 @@ span {
   flex-grow: 1;
   text-align: center;
   font-size: 1rem;
-  margin-top: 3.75rem;
+  margin-top: 4.5rem;
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
@@ -229,22 +231,24 @@ span {
   border-radius: 10px;
   color: var(--text);
   text-decoration: none;
-  transition: color 0.3s, background-color 0.3s;
+  border: 2px solid grey;
+  transition: color 0.3s, background-color 0.3s, border-color 0.3s;
 }
 
-/* Hover effect for nav links */
 .nav-link:hover,
 .chakra-button:hover {
-  background-color: #a7830d;
+  background-color: #34495e;
+  border-color: var(--text);
 }
 
 .nav-link.active,
 .chakra-button.active {
   background-color: var(--primary);
+  border-color: grey;
 }
 
 .datepicker {
-  margin-top: 50px;
+  margin-top: 10px;
   color: var(--text);
 }
 
@@ -278,7 +282,7 @@ label[for="endDate"] {
 }
 
 .table-custom thead td {
-  background-color: #b8860b;
+  background-color: var(--accent);
   color: var(--text);
   font-weight: bold;
 }
@@ -288,7 +292,7 @@ label[for="endDate"] {
 }
 
 .table-custom tbody tr:nth-child(even) {
-  background-color: #f5deb3;
+  background-color: var(--background-light);
 }
 
 canvas {
@@ -313,10 +317,10 @@ canvas {
 
 .chakra-stack {
   display: flex;
-  flex-direction: column;
+  flex-flow: row nowrap;
   justify-content: center;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 15px;
 }
 
 .chakra-card__body h3,
@@ -326,33 +330,55 @@ canvas {
 }
 
 .chakra-card__footer button {
-  background-color: #e0b22d;
-  color: black;
+  background-color: var(--primary);
+  color: var(--text);
   width: 100%;
 }
 
-/*adjusts spacing and position in navbar depending on screen width*/
+.navRight {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.create-account-form {
+  margin-top: 5rem;
+}
+
+#ots-shift-option {
+  width: 15%;
+}
+
+#ots-date {
+  width: 15%;
+  margin: 0 auto;
+}
+
+.ots-submit {
+  margin-top: 2rem;
+  width: 20%;
+  line-height: 3rem;
+}
+
+/* adjusts spacing and position in navbar depending on screen width */
 @media (max-width: 1300px) {
   .shift-title {
     margin-top: 0px;
   }
 
-  .datepicker {
-    margin-top: 0px;
-  }
-
   .navbar-title {
-    font-size: 1.5rem;
+    margin-top: 1rem;
+    font-size: 2rem;
   }
 
   .navbar-subtitle {
-    margin-top: 3rem;
-    font-size: 0.75rem;
+    margin-top: 4rem;
+    font-size: 1rem;
   }
 
   .navbar-custom {
     align-items: flex-start;
   }
+
   .navItem {
     flex-direction: column;
     align-items: flex-start;
@@ -361,7 +387,8 @@ canvas {
   }
 
   .nav-link,
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.9rem;
   }
 
@@ -369,31 +396,40 @@ canvas {
     margin-top: 10px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     position: static;
     margin-top: 10px;
     margin-left: 20px;
   }
 
-  .form-custom-1,
-  .btn-custom-1 {
-    width: 60%;
+  .create-account-form {
+    margin-top: 0;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
     padding: 15px 30px;
   }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 15%;
+  }
+
+  .ots-submit {
+    width: 25%;
+  }
 }
 
 @media (max-width: 912px) {
   .navbar-title {
-    font-size: 1rem;
+    font-size: 1.4rem;
   }
 
   .navbar-subtitle {
-    margin-top: 2.5rem;
-    font-size: 0.6rem;
+    margin-top: 3.2rem;
+    font-size: 0.8rem;
   }
 
   .nav-link {
@@ -401,24 +437,44 @@ canvas {
     margin-left: 10px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.7rem;
+  }
+
+  .navRight {
+    display: flex;
+    flex-flow: column nowrap;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
     padding: 10px 25px;
   }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 40%;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 20%;
+  }
+
+  .ots-submit {
+    width: 35%;
+  }
 }
 
 @media (max-width: 625px) {
   .navbar-title {
-    font-size: 1rem;
+    font-size: 2rem;
   }
 
   .navbar-subtitle {
-    margin-top: 4rem;
-    font-size: 0.6rem;
+    margin-top: 9rem;
+    font-size: 0.9rem;
   }
 
   .nav-link {
@@ -426,12 +482,27 @@ canvas {
     margin-left: 2px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
     padding: 5px 15px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 45%;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 30%;
+  }
+
+  .ots-submit {
+    width: 45%;
   }
 }

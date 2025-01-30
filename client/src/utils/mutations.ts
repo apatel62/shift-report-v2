@@ -34,6 +34,17 @@ export const CREATE_REPORT = gql`
   }
 `;
 
+export const CREATE_OTS_REPORT = gql`
+  mutation createOTSReport($report: OTSReportInput!) {
+    createOTSReport(report: $report) {
+      _id
+      shiftNumber
+      date
+      assignedUserId
+    }
+  }
+`;
+
 export const SAVE_MACHINE = gql`
   mutation saveMachine($machine: MachineInput!) {
     saveMachine(machine: $machine) {
@@ -42,7 +53,19 @@ export const SAVE_MACHINE = gql`
       date
     }
   }
-`
+`;
+
+export const SAVE_OTS_MACHINES = gql`
+  mutation saveOTSMachine($reportId: String!, $machine: [OTSMachineInput!]!) {
+    saveOTSMachines(reportId: $reportId, machine: $machine) {
+      _id
+      shiftNumber
+      date
+    }
+  }
+`;
+
+
 export const SEND_EMAIL = gql`
   mutation sendEmail($reportId: String!) {
     sendEmail(reportId: $reportId) {
@@ -51,7 +74,7 @@ export const SEND_EMAIL = gql`
       date
     }
   }
-`
+`;
 
 export const GET_HISTORY = gql`
   mutation getHistory($history: HistoryInput!) {
@@ -63,15 +86,21 @@ export const GET_HISTORY = gql`
       }
     }
   }
-`
+`;
 export const CREATE_PDF = gql`
   mutation createPDF($create: [CreateInput!]!) {
     createPDF(create: $create) 
   }
-`
+`;
 
 export const GET_PDF = gql`
   mutation getPDF($docId: String!) {
     getPDF(docId: $docId) 
+  }
+`;
+
+export const REMOVE_REPORT = gql`
+  mutation removeReport($reportId: String!) {
+    removeReport(reportId: $reportId) 
   }
 `;

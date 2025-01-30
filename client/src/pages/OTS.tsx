@@ -22,29 +22,35 @@ const OTS = () => {
       setLoginCheck(true);
     }
   };
+  const { loading, error, data: AllReportData, refetch } = useQuery(GET_ALL_REPORTS);
 
   useEffect(() => {
     checkLogin();
+    refetch();
   }, []);
-  const { loading, error, data: AllReportData } = useQuery(GET_ALL_REPORTS);
-  console.log(AllReportData);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
   return (
     <main className="flex-shrink-0">
       {loginCheck && auth.getRole() === "supervisor" ? (
-        <Stack gap="8" direction="row" wrap="wrap">
-          {AllReportData.getAllReports.map((data: OTSProps) => (
-            <OTS_Card
-              key={data._id}
-              date={new Date(data.date).toISOString().split("T")[0]}
-              shift={data.shiftNumber}
-              creator={data.assignedUserId}
-            />
-          ))}
-        </Stack>
+        AllReportData.getAllReports.length === 0 ? (
+          <h2 style={{ marginTop: "4rem" }}>No reports found...</h2>
+        ) : (
+          <Stack gap="8" direction="row" wrap="wrap">
+            {AllReportData.getAllReports.map((data: OTSProps) => (
+              <OTS_Card
+                key={data._id}
+                date={new Date(data.date).toISOString().split("T")[0]}
+                shift={data.shiftNumber}
+                creatorId={data.assignedUserId}
+                savedMachines={data.savedMachines}
+                _id={data._id}
+              />
+            ))}
+          </Stack>
+        )
       ) : (
-        <h1 style={{ marginTop: '20px' }}>
+        <h1 style={{ marginTop: "20px" }}>
           Unauthorized user! Please login as supervisor to access this page.
         </h1>
       )}

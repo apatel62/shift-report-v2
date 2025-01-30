@@ -1,3 +1,4 @@
+//typeDefs describes the data and structure of the queries and mutations the GraphQL will support
 const typeDefs = `
   scalar Date
   type User {
@@ -50,11 +51,25 @@ const typeDefs = `
     assignedUserId: String!   
   }
 
+  input OTSReportInput {
+    shiftNumber: String!      
+    date: Date!
+    assignedUserId: String!   
+  }
+
   input MachineInput {
     machine: String!
     machineStatus: String!
     partsMade: Int!
     comments: String         
+  }
+
+  input OTSMachineInput {
+    machine: String!
+    machineStatus: String!
+    partsMade: Int!
+    comments: String
+    lotNumber: Int!         
   }
 
   input HistoryInput {
@@ -79,7 +94,7 @@ input CreateInput {
   type Query {
     me: User
     getAllReports: [Report]
-    getUserById(userId: ID!): User
+    getUserById(userId: String!): User
   }
 
   type Mutation {
@@ -88,9 +103,12 @@ input CreateInput {
     createReport(report: ReportInput!): Report
     saveMachine(machine: MachineInput!): Report
     sendEmail(reportId: String!): Report
-    getHistory(history: HistoryInput!): [Report]
+    getHistory(history: HistoryInput!): [OTSReport]
     createPDF(create: [CreateInput!]!): String
     getPDF(docId: String!): String
+    createOTSReport(report: OTSReportInput!): OTSReport
+    saveOTSMachines(reportId: String!, machine: [OTSMachineInput!]!): OTSReport
+    removeReport(reportId: String!): String
   }
 `;
 

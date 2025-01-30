@@ -1,0 +1,536 @@
+/* supervisor.css */
+
+:root {
+  --text: #ffffff;
+  --primary: #1d3557;
+  --secondary: #457b9d;
+  --accent: #e63946;
+  --danger: #d72638;
+  --background-dark: #2a3a50;
+  --background-light: #3d5a80;
+}
+
+* {
+  font-family: "Outfit", sans-serif;
+}
+
+/* General Styling */
+.wait-text {
+  color: var(--text);
+}
+
+h1,
+a {
+  color: var(--text);
+}
+
+h2,
+h4 {
+  color: var(--text);
+  margin-top: 20px;
+}
+
+h3,
+span {
+  color: var(--text);
+}
+
+h3 {
+  font-style: italic;
+}
+
+body {
+  background-image: linear-gradient(
+    to right top,
+    var(--background-dark),
+    var(--background-light),
+    var(--secondary),
+    var(--accent),
+    #f1faee
+  );
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  text-align: center;
+}
+
+.login-notice {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  text-align: center;
+}
+
+.login-form {
+  color: var(--text);
+}
+
+.create-account-form {
+  color: var(--text);
+}
+
+.form-check {
+  margin: 20px 50px;
+}
+
+.form-check-input {
+  transform: scale(2);
+}
+
+.form-check-label {
+  color: var(--text);
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+.form-custom {
+  width: 50%;
+  margin: 0px auto;
+}
+
+.shift-title {
+  margin-top: 50px;
+}
+
+.form-custom-1 {
+  width: 30%;
+  margin: 0px auto;
+}
+
+.login-error,
+.addUser-error,
+.OTSReport-error,
+.OTSMachines-error {
+  color: var(--danger);
+  margin-top: 20px;
+  font-style: initial;
+}
+
+.success-user {
+  color: #1abc9c;
+  margin-top: 20px;
+  font-style: initial;
+}
+
+.btn-custom-1 {
+  color: var(--text);
+  background-color: var(--primary);
+  border-color: var(--primary);
+  margin: 20px auto;
+  width: 25%;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+#machine-option {
+  height: 48px;
+  font-size: 20px;
+}
+
+select {
+  cursor: pointer;
+}
+
+#parts-made {
+  height: 48px;
+}
+
+span {
+  font-size: 20px;
+}
+
+.form-custom-2 {
+  width: 50%;
+  margin: 15px auto;
+  margin-top: 10px;
+}
+
+.btn-custom {
+  color: var(--text);
+  background-color: var(--primary);
+  margin: 20px auto;
+  width: 50%;
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+.btn-custom:hover {
+  background-color: var(--secondary);
+  color: var(--text);
+  transition: min-height 0.3s ease;
+}
+
+.btn-custom-1:hover {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+
+.form-custom,
+.form-custom-1,
+.form-custom-2 {
+  box-shadow: var(--bs-box-shadow) !important;
+}
+
+/* Navbar container */
+.navbar-custom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+  padding: 10px 20px;
+  position: relative;
+  min-height: 60px;
+  transition: min-height 0.3s ease;
+}
+
+/* Logoff button (right side) with border */
+.logoff {
+  color: var(--primary);
+  font-size: 20px;
+  background: none;
+  border: 2px solid var(--primary); /* Adding border */
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  margin-left: 15px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.logoff:hover {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+.createAccount {
+  color: var(--primary);
+  font-size: 20px;
+  background: none;
+  border: 2px solid var(--primary); /* Adding border */
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.createAccount:hover {
+  color: var(--text);
+  background-color: var(--secondary);
+}
+/* Navbar title with border */
+.navbar-title {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 2.1rem;
+  margin: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Navbar subtitle with border */
+.navbar-subtitle {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 1rem;
+  margin-top: 4.5rem;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 2px solid var(--primary);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.navItem {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.nav-link,
+.chakra-button {
+  margin-left: 20px;
+  font-size: 1rem;
+  padding: 10px;
+  border-radius: 10px;
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.3s, background-color 0.3s;
+  border: 2px solid var(--primary);
+}
+
+.nav-link:hover,
+.chakra-button:hover {
+  background-color: var(--secondary);
+}
+
+.nav-link.active,
+.chakra-button.active {
+  background-color: var(--primary);
+}
+
+.datepicker {
+  margin-top: 10px;
+  color: var(--text);
+}
+
+label[for="startDate"],
+label[for="endDate"] {
+  font-size: 30px;
+}
+
+#startDate,
+#endDate {
+  height: 50%;
+}
+
+.table-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-custom {
+  border-collapse: collapse;
+  margin: 20px auto;
+}
+
+.table-custom thead td,
+.table-custom tbody td {
+  border: 1px solid #ddd;
+  padding: 15px 40px;
+  text-align: center;
+}
+
+.table-custom thead td {
+  background-color: var(--accent);
+  color: var(--text);
+  font-weight: bold;
+}
+
+.table-custom tbody tr:nth-child(odd) {
+  background-color: var(--background-dark);
+}
+
+.table-custom tbody tr:nth-child(even) {
+  background-color: var(--background-light);
+}
+
+.table-custom tbody tr {
+  color: var(--text);
+}
+
+canvas {
+  width: 75%;
+  height: 200px;
+  background-color: var(--text);
+}
+
+.filter-checkbox,
+.filter-by {
+  margin-top: 50px;
+}
+
+.body-blur {
+  filter: blur(5px);
+  transition: filter 0.3s ease;
+}
+
+.modal {
+  z-index: 1050 !important;
+}
+
+.chakra-stack {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.chakra-card__body h3,
+.chakra-card__body p {
+  color: black;
+  font-size: 1.5rem;
+}
+
+.chakra-card__footer button {
+  background-color: var(--primary);
+  color: var(--text);
+  width: 100%;
+}
+
+.navRight {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.create-account-form {
+  margin-top: 5rem;
+}
+
+#ots-shift-option {
+  width: 15%;
+}
+
+#ots-date {
+  width: 15%;
+  margin: 0 auto;
+}
+
+.ots-submit {
+  margin-top: 2rem;
+  width: 20%;
+  line-height: 3rem;
+}
+
+/* Adjusts spacing and position in navbar depending on screen width */
+@media (max-width: 1300px) {
+  .shift-title {
+    margin-top: 0px;
+  }
+
+  .navbar-title {
+    margin-top: 1rem;
+    font-size: 2rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 4rem;
+    font-size: 1rem;
+  }
+
+  .navbar-custom {
+    align-items: flex-start;
+  }
+
+  .navItem {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 0px;
+  }
+
+  .nav-link,
+  .logoff,
+  .createAccount {
+    font-size: 0.9rem;
+  }
+
+  .nav-bottom {
+    margin-top: 10px;
+  }
+
+  .logoff,
+  .createAccount {
+    position: static;
+    margin-top: 10px;
+    margin-left: 20px;
+  }
+
+  .create-account-form {
+    margin-top: 0;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 15px 30px;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 15%;
+  }
+
+  .ots-submit {
+    width: 25%;
+  }
+}
+
+@media (max-width: 912px) {
+  .navbar-title {
+    font-size: 1.4rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 3.2rem;
+    font-size: 0.8rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+    margin-left: 10px;
+  }
+
+  .logoff,
+  .createAccount {
+    font-size: 0.7rem;
+  }
+
+  .navRight {
+    display: flex;
+    flex-flow: column nowrap;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 10px 25px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 40%;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 20%;
+  }
+
+  .ots-submit {
+    width: 35%;
+  }
+}
+
+@media (max-width: 625px) {
+  .navbar-title {
+    font-size: 2rem;
+  }
+
+  .navbar-subtitle {
+    margin-top: 9rem;
+    font-size: 0.9rem;
+  }
+
+  .nav-link {
+    font-size: 0.7rem;
+    margin-left: 2px;
+  }
+
+  .logoff,
+  .createAccount {
+    font-size: 0.7rem;
+  }
+
+  .table-custom thead td,
+  .table-custom tbody td {
+    padding: 5px 15px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 45%;
+  }
+
+  #ots-shift-option,
+  #ots-date {
+    width: 30%;
+  }
+
+  .ots-submit {
+    width: 45%;
+  }
+}

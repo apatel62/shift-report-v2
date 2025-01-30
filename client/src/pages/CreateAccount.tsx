@@ -114,7 +114,7 @@ const CreateAccount = () => {
       {/* Main content where the form questions are presented */}
       <main className="flex-shrink-0">
         {loginCheck && auth.getRole() === "supervisor" ? (
-          <div className="login-notice">
+          <div className="create-account-form">
             <form className="login-form" onSubmit={handleAddUserSubmit}>
               <h4>Username</h4>
               <input
@@ -143,20 +143,12 @@ const CreateAccount = () => {
               >
                 {showPassword ? "Hide Password" : "Show Password"}
               </button>
-              {/* <input
-                type="password"
-                name="password"
-                className="form-control form-custom-1"
-                value={newUserData.password || ""}
-                onKeyDown={handleKeyDown}
-                onChange={handleAddUserChange}
-              /> */}
               <h4>Email</h4>
               <input
                 type="text"
                 name="email"
                 className="form-control form-custom-1"
-                placeholder="Enter valid & unqiue email"
+                placeholder="Enter valid & unique email"
                 value={newUserData.email || ""}
                 onKeyDown={handleKeyDown}
                 onChange={handleEmailChange}
@@ -225,7 +217,7 @@ const CreateAccount = () => {
             </h3>
           </div>
         ) : (
-          <h1 style={{ marginTop: '20px' }}>
+          <h1 style={{ marginTop: "20px" }}>
             Unauthorized user! Please login as supervisor to access this page.
           </h1>
         )}
