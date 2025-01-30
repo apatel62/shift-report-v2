@@ -87,27 +87,25 @@ const Nav = () => {
         </h2>
       </div>
 
-      <Link
-        to="/CreateAccount"
-        className={
-          currentPage === "/CreateAccount"
-            ? "createAccount"
-            : "createAccount"
-        }
-        style={{
-          display:
-            loginCheck && auth.getRole() === "supervisor" ? "block" : "none",
-        }}
-      >
-        Create an Account
-      </Link>
-      <button
-        className="logoff"
-        style={{ display: loginCheck ? "block" : "none" }}
-        onClick={handleLogoffSubmit}
-      >
-        Logoff
-      </button>
+      <div className="navRight">
+        <Link
+          to="/CreateAccount"
+          className="createAccount"
+          style={{
+            display:
+              loginCheck && auth.getRole() === "supervisor" ? "block" : "none",
+          }}
+        >
+          Create an Account
+        </Link>
+        <button
+          className="logoff"
+          style={{ display: loginCheck ? "block" : "none" }}
+          onClick={handleLogoffSubmit}
+        >
+          Logoff
+        </button>
+      </div>
     </header>
   );
 };

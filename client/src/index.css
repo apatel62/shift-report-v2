@@ -335,6 +335,15 @@ canvas {
   width: 100%;
 }
 
+.navRight {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.create-account-form {
+  margin-top: 5rem;
+}
+
 /* adjusts spacing and position in navbar depending on screen width */
 @media (max-width: 1300px) {
   .shift-title {
@@ -366,7 +375,8 @@ canvas {
   }
 
   .nav-link,
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.9rem;
   }
 
@@ -374,15 +384,15 @@ canvas {
     margin-top: 10px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     position: static;
     margin-top: 10px;
     margin-left: 20px;
   }
 
-  .form-custom-1,
-  .btn-custom-1 {
-    width: 60%;
+  .create-account-form {
+    margin-top: 0;
   }
 
   .table-custom thead td,
@@ -406,13 +416,24 @@ canvas {
     margin-left: 10px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.7rem;
+  }
+
+  .navRight {
+    display: flex;
+    flex-flow: column nowrap;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
     padding: 10px 25px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 40%;
   }
 }
 
@@ -431,12 +452,18 @@ canvas {
     margin-left: 2px;
   }
 
-  .logoff {
+  .logoff,
+  .createAccount {
     font-size: 0.7rem;
   }
 
   .table-custom thead td,
   .table-custom tbody td {
     padding: 5px 15px;
+  }
+
+  .form-custom-1,
+  .btn-custom-1 {
+    width: 45%;
   }
 }

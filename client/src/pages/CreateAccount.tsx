@@ -114,7 +114,7 @@ const CreateAccount = () => {
       {/* Main content where the form questions are presented */}
       <main className="flex-shrink-0">
         {loginCheck && auth.getRole() === "supervisor" ? (
-          <div className="login-notice">
+          <div className="create-account-form">
             <form className="login-form" onSubmit={handleAddUserSubmit}>
               <h4>Username</h4>
               <input
