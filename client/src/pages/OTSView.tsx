@@ -146,7 +146,7 @@ const OTSView = () => {
           if (removedReport.removeReport) {
             setTimeout(() => {
               navigate("/OTS");
-            }, 2000);
+            }, 750);
           }
         }
       }
