@@ -49,7 +49,7 @@ const ShiftHistory = () => {
     const parsedStartDate = e.target.value;
     setHistoryParams((prev) =>
       prev
-        ? { ...prev, startDate: `${parsedStartDate}T05:00:00.000Z` }
+        ? { ...prev, startDate: `${parsedStartDate}T00:00:00.000Z` }
         : undefined
     );
     if (isValidDateFormat(e.target.value) && isValidDateFormat(endDate)) {
@@ -74,7 +74,7 @@ const ShiftHistory = () => {
     setEndDate(e.target.value);
     const parsedEndDate = e.target.value;
     setHistoryParams((prev) =>
-      prev ? { ...prev, endDate: `${parsedEndDate}T08:00:00.000Z` } : undefined
+      prev ? { ...prev, endDate: `${parsedEndDate}T10:00:00.000Z` } : undefined
     );
     if (isValidDateFormat(startDate) && isValidDateFormat(e.target.value)) {
       setIsCheckboxVisible(true);

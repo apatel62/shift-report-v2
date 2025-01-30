@@ -20,6 +20,7 @@ async function loadJson(filePath: string) {
 db.once("open", async () => {
   await cleanDB("User", "users");
   await cleanDB("Report", "reports");
+  await cleanDB("OTSReport", "otsreports");
 
   const userData = await loadJson(path.join(jsonDirectory, "userData.json"));
   await User.insertMany(userData);

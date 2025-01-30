@@ -306,7 +306,7 @@ const resolvers = {
         //When users are on the Shift History page, the requested reports will be returned based on the date range they specified on the front-end
         getHistory: async(_parent: unknown, getHistoryArgs: GetHistoryArgs) => {
             try{
-                const reports = await Report.find({
+                const reports = await OTSReport.find({
                     date: {$gte: new Date(getHistoryArgs.history.startDate), $lte: new Date(getHistoryArgs.history.endDate)},
                     'savedMachines.machine': {$in: getHistoryArgs.history.selectedMachines},
                 });

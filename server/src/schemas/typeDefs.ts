@@ -103,7 +103,7 @@ input CreateInput {
     createReport(report: ReportInput!): Report
     saveMachine(machine: MachineInput!): Report
     sendEmail(reportId: String!): Report
-    getHistory(history: HistoryInput!): [Report]
+    getHistory(history: HistoryInput!): [OTSReport]
     createPDF(create: [CreateInput!]!): String
     getPDF(docId: String!): String
     createOTSReport(report: OTSReportInput!): OTSReport
