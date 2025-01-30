@@ -1,5 +1,5 @@
 import { Card } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "../components/ui/button";
 import { useQuery } from "@apollo/client";
 import { GET_USER_ID } from "@/utils/queries";
 import { useNavigate } from "react-router-dom";
