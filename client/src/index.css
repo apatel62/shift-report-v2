@@ -282,7 +282,7 @@ label[for="endDate"] {
 }
 
 .table-custom thead td {
-  background-color: var(--accent);
+  background-color: var(--primary);
   color: var(--text);
   font-weight: bold;
 }
