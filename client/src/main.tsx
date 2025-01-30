@@ -9,10 +9,9 @@ import CreateAccount from "./pages/CreateAccount.tsx";
 import OTS from "./pages/OTS.tsx";
 import auth from "./utils/auth";
 
-
 import OTSView from "./pages/OTSView.tsx";
 
-const router = createBrowserRouter([ 
+const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
@@ -44,14 +43,19 @@ const router = createBrowserRouter([
 
 const rootElement = document.getElementById("root");
 if (rootElement) {
-  if (auth.loggedIn()) {
-    if (auth.getRole() === "supervisor"){
-      import("./supervisor.css");
-    }else{
-      import("./index.css");
+  const loadCSS = async () => {
+    if (auth.loggedIn()) {
+      if (auth.getRole() === "supervisor") {
+        await import("./supervisor.css");
+      } else {
+        await import("./index.css");
+      }
+    } else {
+      await import("./index.css");
     }
-  } else {
-    import("./index.css");
-  }
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  };
+
+  loadCSS().then(() => {
+    ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  });
 }
