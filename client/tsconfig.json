@@ -17,9 +17,10 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./src/*"],
-      "@components/": ["./components/*"]
+      "@/*": ["./*"],
+      "@components/*": ["./components/*"]
     }
   },
   "include": ["src"],
